@@ -6,6 +6,7 @@ import (
 	"System/util"
 	"fmt"
 
+	"github.com/skoo87/log4go"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -53,7 +54,7 @@ func (u *UserLogicMgr) Process() error {
 	)
 	// 1.幂等校验
 	if hasUser, err = u.checkIfHasUser(); err != nil {
-		//TODO: 增加log
+		log4go.Error("checkIfHasUser err:%v", err)
 	} else if hasUser {
 		// 已经拥有这个User 那么就 返回增加用户的错误信息
 		return fmt.Errorf("addUserHadler hasUser")
@@ -63,6 +64,7 @@ func (u *UserLogicMgr) Process() error {
 
 	// 3. 加密用户的passworld
 	if err = u.EnCodePwd(); err != nil {
+		log4go.Error("EnCodePwd err:%v", err)
 		return err
 	}
 
@@ -71,7 +73,7 @@ func (u *UserLogicMgr) Process() error {
 
 	// 5.将数据存入数据库当中
 	if err = u.addUserToDB(userInfo); err != nil {
-		//
+		log4go.Error("save user_info into DB err:%v", err)
 		return err
 	}
 

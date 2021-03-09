@@ -4,9 +4,9 @@ import (
 	"System/common"
 	"System/user/user_moudle"
 	"fmt"
-)
 
-//TODO: 这里主要会操作数据库将数据存入
+	"github.com/skoo87/log4go"
+)
 
 func AddUserInfoToDB(userInfo *user_moudle.UserInfo) error {
 	// 先做简单一些 后期可以加入连接池等操作 目前使用链接断开的简单方式
@@ -30,6 +30,9 @@ func CheckIfHasUserFromDB(telephoneNum string) (bool, error) {
 
 	queryStr := fmt.Sprintf("select * from user where phone=%s", telephoneNum)
 	sqlRow, err := common.DB.Query(queryStr)
+	if err != nil {
+		log4go.Error("queryDB faild:queryStr:%s err:%v")
+	}
 	if sqlRow != nil {
 		hasUser = true
 		return hasUser, err

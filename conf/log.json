@@ -1,0 +1,12 @@
+{
+    "LogLevel" : "info",
+
+    "FileWriter" : {
+        "LogPath" : "../run_log/log-%Y%M%D.log",
+        "On": true
+    },
+
+    "ConsoleWriter" : {
+        "On" : true
+    }
+}

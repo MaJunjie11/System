@@ -5,6 +5,8 @@ import (
 	"System/user/user_logic"
 	"fmt"
 	"log"
+
+	"github.com/skoo87/log4go"
 )
 
 type AddUserHander struct {
@@ -29,6 +31,7 @@ func (u *AddUserHander) Run() {
 	// 2. 如果不存在 那么将这个用户添加
 	userLogicMgr := user_logic.NewUserLogicMgr(userName, passworld, phoneNum, int32(sex), age)
 	if err = userLogicMgr.Process(); err != nil {
+		log4go.Error("m_add_user err:%v", err)
 		return
 	}
 	u.Resp.Uid = userLogicMgr.Uid
