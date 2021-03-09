@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb_gen;
+enum Sex {
+  Unknow = 0;
+  Man = 1;
+  Woman = 2;
+}
+
+message AddUserRequest {
+  string user_name = 1;
+  string passworld = 2;
+  string telephone_num = 3;
+  Sex sex = 4;
+  int32 age = 5;
+};
+
+message AddUserResponse {
+  int32 err_no = 1;
+  string err_tips = 2;
+  int64 uid = 3;
+};
+
+service LoginService {
+  rpc AddUser(AddUserRequest) returns (AddUserResponse) {}
+}

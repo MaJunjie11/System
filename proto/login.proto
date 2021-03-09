@@ -1,0 +1,17 @@
+syntax = "proto3";
+package pb_gen;
+
+message UserLoginRequest {
+  int64 uid = 1;
+  string passward = 2;
+};
+
+message UserLoginResponse {
+  int32 loginStatus = 1;
+  int32 err_no = 2;
+  string err_tips = 3;
+};
+
+service LoginService {
+  rpc UserLogin(UserLoginRequest) returns (UserLoginResponse) {}
+}
