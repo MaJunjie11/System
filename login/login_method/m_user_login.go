@@ -1,7 +1,7 @@
 package login_method
 
 import (
-	"OpenExperimentalManagementSystem/pb_gen"
+	"System/pb_gen"
 	"fmt"
 	"log"
 )

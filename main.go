@@ -1,7 +1,7 @@
 package main
 
 import (
-	"OpenExperimentalManagementSystem/server"
+	"System/server"
 
 	"github.com/gin-gonic/gin"
 )

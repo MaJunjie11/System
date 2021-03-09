@@ -1,9 +1,9 @@
 package user_logic
 
 import (
-	"OpenExperimentalManagementSystem/user/user_dal"
-	"OpenExperimentalManagementSystem/user/user_moudle"
-	"OpenExperimentalManagementSystem/util"
+	"System/user/user_dal"
+	"System/user/user_moudle"
+	"System/util"
 	"fmt"
 
 	"golang.org/x/crypto/bcrypt"

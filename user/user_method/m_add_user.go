@@ -1,8 +1,8 @@
 package user_method
 
 import (
-	"OpenExperimentalManagementSystem/pb_gen"
-	"OpenExperimentalManagementSystem/user/user_logic"
+	"System/pb_gen"
+	"System/user/user_logic"
 	"fmt"
 	"log"
 )

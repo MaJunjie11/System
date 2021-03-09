@@ -1,9 +1,9 @@
 package server
 
 import (
-	"OpenExperimentalManagementSystem/login/login_method"
-	"OpenExperimentalManagementSystem/pb_gen"
-	"OpenExperimentalManagementSystem/user/user_method"
+	"System/login/login_method"
+	"System/pb_gen"
+	"System/user/user_method"
 	"strconv"
 
 	"github.com/gin-gonic/gin"

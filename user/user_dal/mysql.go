@@ -1,8 +1,8 @@
 package user_dal
 
 import (
-	"OpenExperimentalManagementSystem/common"
-	"OpenExperimentalManagementSystem/user/user_moudle"
+	"System/common"
+	"System/user/user_moudle"
 	"fmt"
 )
 
