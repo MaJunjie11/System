@@ -11,7 +11,7 @@ func main() {
 	initLog()
 	r := gin.Default()
 	server.SetRoute(r)
-	r.Run("152.136.134.52:8080") // 监听并在 0.0.0.0:8080 上启动服务
+	r.Run() // 监听并在 0.0.0.0:8080 上启动服务
 }
 
 func initLog() {
