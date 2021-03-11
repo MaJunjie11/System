@@ -75,13 +75,9 @@ func warpUserLogin(c *gin.Context) {
 	req := pb_gen.UserLoginRequest{}
 	resp := pb_gen.UserLoginResponse{}
 
-	uidStr := c.Query("phone")
+	phone := c.Query("phone")
 	passward := c.Query("passward")
-	uid, err := strconv.ParseInt(uidStr, 10, 64)
-	if err != nil {
-	}
-
-	req.Uid = uid
+	req.Phone = phone
 	req.Passward = passward
 	UserLoginHandler := login_method.UserLoginHander{
 		Req:  &req,

@@ -5,17 +5,19 @@ import (
 	"System/user/user_moudle"
 	"fmt"
 
+	jsoniter "github.com/json-iterator/go"
+
 	"github.com/skoo87/log4go"
 )
 
 func AddUserInfoToDB(userInfo *user_moudle.UserInfo) error {
-	// 先做简单一些 后期可以加入连接池等操作 目前使用链接断开的简单方式
+	var userInfoStr string
+	userInfoStr, _ = jsoniter.MarshalToString(userInfo)
 	common.InitDB()
 	defer common.ClosDB()
-	// 在这里将用户数据传入DB
-	// id name age sex phone passworld Uid
-	queryStr := fmt.Sprintf("insert into user values(1,'%s', %d, %d, '%s', '%s', %d)", userInfo.Name, userInfo.Age, userInfo.Sex, userInfo.Phone, userInfo.Passworld, userInfo.Uid)
-	fmt.Println(queryStr)
+	fmt.Print(userInfoStr)
+	// id userInfoJson uid phone  后续优化索引
+	queryStr := fmt.Sprintf("insert into user values(1,'%s','%d', '%s')", userInfoStr, userInfo.Uid, userInfo.Phone)
 	common.DB.Query(queryStr)
 	return nil
 }
