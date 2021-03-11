@@ -10,8 +10,8 @@ import (
 
 //数据库配置
 const (
-	userName = "root"
-	password = "19980322"
+	userName = "debian-sys-maint"
+	password = "e6xVfD1Asr83wP56"
 	ip       = "127.0.0.1"
 	port     = "3306"
 	dbName   = "myserver"

@@ -9,7 +9,31 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Cors() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		origin := c.Request.Header.Get("origin") //请求头部
+		if len(origin) == 0 {
+			origin = c.Request.Header.Get("Origin")
+		}
+		//接收客户端发送的origin （重要！）
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		//允许客户端传递校验信息比如 cookie (重要)
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		//服务器支持的所有跨域请求的方法
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE, UPDATE")
+		c.Writer.Header().Set("Content-Type", "application/json; charset=utf-8")
+		// 设置预验请求有效期为 86400 秒
+		c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+		c.Next()
+	}
+}
 func SetRoute(r *gin.Engine) {
+	r.Use(Cors())
 	r.GET("/user_login", warpUserLogin)
 	r.GET("/user_add", warpAddUser)
 }
@@ -51,7 +75,7 @@ func warpUserLogin(c *gin.Context) {
 	req := pb_gen.UserLoginRequest{}
 	resp := pb_gen.UserLoginResponse{}
 
-	uidStr := c.Query("uid")
+	uidStr := c.Query("phone")
 	passward := c.Query("passward")
 	uid, err := strconv.ParseInt(uidStr, 10, 64)
 	if err != nil {
@@ -64,6 +88,7 @@ func warpUserLogin(c *gin.Context) {
 		Resp: &resp,
 	}
 	UserLoginHandler.Run()
+	c.Handler()
 	c.JSON(200, gin.H{
 		"loginStatus": resp.LoginStatus,
 		"errNo":       resp.ErrNo,

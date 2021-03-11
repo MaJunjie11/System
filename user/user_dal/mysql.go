@@ -24,18 +24,19 @@ func CheckIfHasUserFromDB(telephoneNum string) (bool, error) {
 	var (
 		err     error
 		hasUser bool = false
+		phone   string
 	)
 	common.InitDB()
 	defer common.ClosDB()
 
-	queryStr := fmt.Sprintf("select * from user where phone=%s", telephoneNum)
-	sqlRow, err := common.DB.Query(queryStr)
-	if err != nil {
-		log4go.Error("queryDB faild:queryStr:%s err:%v")
+	queryStr := fmt.Sprintf("select phone from user where phone=%s", telephoneNum)
+
+	if err = common.DB.QueryRow(queryStr).Scan(&phone); err != nil {
+		log4go.Error("queryDB faild:queryStr:%s err:%v", queryStr, err)
+		return false, err
 	}
-	if sqlRow != nil {
+	if phone != "" {
 		hasUser = true
-		return hasUser, err
 	}
 	return hasUser, nil
 }
