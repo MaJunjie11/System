@@ -12,12 +12,14 @@ message AddUserRequest {
   string telephone_num = 3;
   Sex sex = 4;
   int32 age = 5;
+  int64 user_type = 6;
 };
 
 message AddUserResponse {
   int32 err_no = 1;
   string err_tips = 2;
   int64 uid = 3;
+  int64 user_type = 4;
 };
 
 service LoginService {

@@ -1,0 +1,73 @@
+syntax = "proto3";
+import "room_info.proto";
+package pb_gen;
+
+enum RoomCapcity {
+  Small = 0;
+  Middle = 1;
+  Big = 2;
+}
+// 创建申请教室接口
+message CreateRoomRequest {
+  int64 teacher_id = 1;
+  RoomCapcity room_capcity = 2;
+  string room_name = 3;
+}
+
+message CreateRoomResponse {
+  int32 err_no = 1;
+  string err_tips = 2;
+}
+
+// 管理员拉取待审核创建教室列表
+message ManagerGetReviewRoomRequest { int64 manager_id = 1; }
+
+message ManegerGetReviewRoomReponse {
+  int64 user_type = 1;
+  repeated RoomInfo room_info_list = 2;
+  int32 err_no = 3;
+  string err_tips = 4;
+}
+
+// 管理员审核教室创建接口
+message ManagerCreateRoomRequest {
+  int64 check_status = 1;
+  int64 room_id = 2;
+  int64 teacher_id = 3; //申请的老师
+}
+
+message ManegerCreateRoomRequest {
+  int32 err_no = 1;
+  string err_tips = 2;
+}
+
+// 学生自主申请加入教室接口
+message AddStudentToRoomRequest {
+  int64 student_id = 1;
+  int64 room_id = 2;
+}
+
+message AddStudentToRoomResponse {
+  int32 err_no = 1;
+  string err_tips = 2;
+}
+
+// 老师添加学生加入教室接口
+message TeacherAddStudentToRoomRequest {
+  int64 room_id = 1;
+  int64 student_id = 2;
+}
+
+message TeacherAddStudentToRoomResponse {
+  int32 err_no = 1;
+  string err_tips = 2;
+}
+// 老师审核学生加入结果
+message CheckStudentToRoomRequest {
+  int64 room_id = 1;
+  int64 check_status = 2; // 0 通过  1不通过
+}
+message CheckStudentToRoomResponse {
+  int32 err_no = 1;
+  string err_tips = 2;
+}

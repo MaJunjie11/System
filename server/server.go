@@ -3,6 +3,7 @@ package server
 import (
 	"System/login/login_method"
 	"System/pb_gen"
+	"System/room/room_method"
 	"System/user/user_method"
 	"strconv"
 
@@ -36,6 +37,19 @@ func SetRoute(r *gin.Engine) {
 	r.Use(Cors())
 	r.GET("/user_login", warpUserLogin)
 	r.GET("/user_add", warpAddUser)
+	r.GET("/create_room", warpCreateRoom)
+}
+
+func warpCreateRoom(c *gin.Context) {
+	req := &pb_gen.CreateRoomRequest{}
+	resp := &pb_gen.CreateRoomResponse{}
+	c.ShouldBindQuery(&req) // 按照json格式解析出来
+	createRoomHandler := &room_method.CreateRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	createRoomHandler.Run()
+	c.JSON(200, resp)
 }
 
 func warpAddUser(c *gin.Context) {
