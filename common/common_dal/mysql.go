@@ -19,8 +19,8 @@ func GetUserInfoByPhone(phone string) (bool, *user_moudle.UserInfo, error) {
 	common.InitDB()
 	defer common.ClosDB()
 
-	queryStr := fmt.Sprintf("select phone from user where phone=%s", phone)
-	row := common.DB.QueryRow(queryStr)
+	queryStr := fmt.Sprintf("select userInfo from user where phone =%s", phone)
+	row := common.DB.QueryRow("select userInfo from user where phone = ?", phone)
 	if row == nil {
 		log4go.Error("queryDB faild row is nil:queryStr:%s", queryStr)
 		return false, nil, nil
@@ -29,7 +29,7 @@ func GetUserInfoByPhone(phone string) (bool, *user_moudle.UserInfo, error) {
 		log4go.Error("queryDB faild:queryStr:%s err:%v", queryStr, row.Err())
 		return false, nil, err
 	}
-	if err = row.Scan(userInfoStr); err != nil {
+	if err = row.Scan(&userInfoStr); err != nil {
 		log4go.Error("queryDB faild:queryStr:%s err:%v", queryStr, err)
 		return false, nil, nil
 	}
