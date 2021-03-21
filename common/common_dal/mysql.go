@@ -2,28 +2,68 @@ package common_dal
 
 import (
 	"System/common"
-	"System/user/user_moudle"
+	"System/pb_gen"
 	"fmt"
 
 	jsoniter "github.com/json-iterator/go"
 	"github.com/skoo87/log4go"
 )
 
-func TeacherAddStudentToRoom(roomId, userId, teacherId int64) error {
+func TeacherGetReqAddRoomStudentList(teacherId, roomId int64) ([]*pb_gen.UserInfo, error) {
+	var (
+		err          error
+		userInfoList []*pb_gen.UserInfo = make([]*pb_gen.UserInfo, 0)
+		userInfo     *pb_gen.UserInfo   = &pb_gen.UserInfo{}
+	)
+	common.InitDB()
+	defer common.ClosDB()
+	queryStr := fmt.Sprintf("select a.userInfo from user as a left join user_room as b on a.uid=b.userId where b.teacherId=%d and b.status=2 and b.roomId = %d", teacherId, roomId)
+	rows, err := common.DB.Query(queryStr)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		var userInfoStr string
+		rows.Scan(&userInfoStr)
+		jsoniter.UnmarshalFromString(userInfoStr, userInfo)
+		userInfoList = append(userInfoList, userInfo)
+	}
+	return userInfoList, nil
+}
+
+func TeacherCheckStudentToRoom(roomId, userId int64) error {
+	common.InitDB()
+	defer common.ClosDB()
+	// id userInfoJson uid phone  后续优化索引
+	queryStr := fmt.Sprintf("update  user_room set status = 1 where roomId = %d and userId = %d)", roomId, userId)
+	common.DB.Query(queryStr)
 	return nil
 }
 
-func AddStudentToRoom(roomId, userId int64) error {
-	//TODO: 注意这里需要是待审核状态
+func TeacherAddStudentToRoom(roomId, userId, teacherId int64) error {
+	common.InitDB()
+	defer common.ClosDB()
+	// 通过状态
+	queryStr := fmt.Sprintf("insert into user_room values('%d', '%d',1, '%d')", roomId, userId, teacherId)
+	common.DB.Query(queryStr)
+	return nil
+}
+
+func StudentApplyAddToRoom(roomId, userId, teacherId int64) error {
+	common.InitDB()
+	defer common.ClosDB()
+	// id userInfoJson uid phone  后续优化索引
+	queryStr := fmt.Sprintf("insert into user_room values('%d', '%d',2,'%d')", roomId, userId, teacherId)
+	common.DB.Query(queryStr)
 	return nil
 }
 
 // 通过phone拿到用户的Info 后续在userInfo中扩充字段
-func GetUserInfoByPhone(phone string) (bool, *user_moudle.UserInfo, error) {
+func GetUserInfoByPhone(phone string) (bool, *pb_gen.UserInfo, error) {
 	var (
 		err         error
 		userInfoStr string
-		userInfo    *user_moudle.UserInfo = &user_moudle.UserInfo{}
+		userInfo    *pb_gen.UserInfo = &pb_gen.UserInfo{}
 	)
 	common.InitDB()
 	defer common.ClosDB()
@@ -53,11 +93,11 @@ func GetUserInfoByPhone(phone string) (bool, *user_moudle.UserInfo, error) {
 	return true, userInfo, nil
 }
 
-func GetUsrInfoByUid(uid int64) (*user_moudle.UserInfo, error) {
+func GetUsrInfoByUid(uid int64) (*pb_gen.UserInfo, error) {
 	var (
 		err         error
 		userInfoStr string
-		userInfo    *user_moudle.UserInfo = &user_moudle.UserInfo{}
+		userInfo    *pb_gen.UserInfo = &pb_gen.UserInfo{}
 	)
 	common.InitDB()
 	defer common.ClosDB()

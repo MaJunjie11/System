@@ -3,6 +3,7 @@ package room_method
 import (
 	"System/common/common_dal"
 	"System/pb_gen"
+	"System/room/room_dal"
 )
 
 type AddStudentToRoomHandler struct {
@@ -18,5 +19,13 @@ func NewAddStudentToRoomHandler(req *pb_gen.AddStudentToRoomRequest, resp *pb_ge
 }
 
 func (a *AddStudentToRoomHandler) Run() {
-	common_dal.AddStudentToRoom(a.Req.GetRoomId(), a.Req.GetStudentId())
+	hasRoom, roomInfo, err := room_dal.GetRoomInfoByRoomId(a.Req.GetRoomId())
+	if !hasRoom || err != nil {
+		return
+	}
+	// 教室不在使用中 不能添加
+	if roomInfo.RoomStatus != pb_gen.RoomStatus_Usering {
+		return
+	}
+	common_dal.StudentApplyAddToRoom(a.Req.GetRoomId(), a.Req.GetStudentId(), roomInfo.TeacherId)
 }

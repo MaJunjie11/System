@@ -7,14 +7,14 @@ import (
 )
 
 type CreateRoomManager struct {
-	TeacherId   int64
+	ManagerId   int64
 	RoomCapcity pb_gen.RoomCapcity
 	RoomName    string
 }
 
 func NewCreateRoomManager(teacherId int64, roomCapcity pb_gen.RoomCapcity, roomName string) *CreateRoomManager {
 	return &CreateRoomManager{
-		TeacherId:   teacherId,
+		ManagerId:   teacherId,
 		RoomCapcity: roomCapcity,
 		RoomName:    roomName,
 	}
@@ -60,10 +60,10 @@ func (c *CreateRoomManager) Process() error {
 
 func (c *CreateRoomManager) packRoomInfo(roomId, roomCap int64) *pb_gen.RoomInfo {
 	return &pb_gen.RoomInfo{
-		RoomId:      roomId,
-		TeacherId:   c.TeacherId,
-		RoomName:    c.RoomName,
-		RoomStatus:  pb_gen.RoomStatus_Reviewing,
-		RoomCapcity: roomCap,
+		RoomId:         roomId,
+		RoomReviewerId: c.ManagerId,
+		RoomName:       c.RoomName,
+		RoomStatus:     pb_gen.RoomStatus_Creating, //房间处于创建状态
+		RoomCapcity:    roomCap,
 	}
 }

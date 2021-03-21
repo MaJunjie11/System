@@ -40,25 +40,84 @@ func SetRoute(r *gin.Engine) {
 	r.GET("/create_room", warpCreateRoom)
 	r.GET("/manager_get_reviewing_room", warpManagerGetReeviewingRoom)
 	r.GET("/manager_check_reviewing_room", warpMangerCheckReviewingRoom)
+	r.GET("/add_student_to_room", warpAddStudentRoRoom)
+	r.GET("/teacher_get_can_reviewingy_roomlist", warpTeacherGetCanReviewingRoomList)
+	r.GET("/teacher_check_student_to_room", warpTeacherCheckStudentToRoom)
+	r.GET("/teacher_add_student_to_room", warpTeacherAddStudentToRoom)
+	r.GET("/teacher_get_req_add_room_studentlist", warpTeacherGetReqAddRoomStudentList)
+}
+
+func warpTeacherGetReqAddRoomStudentList(c *gin.Context) {
+	req := &pb_gen.TeacherGetReqAddRoomStudentListRequest{}
+	resp := &pb_gen.TeacherGetReqAddRoomStudentListResponse{}
+	c.ShouldBindQuery(req)
+	handler := room_method.TeacherGetReqAddRoomStudentListHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	handler.Run()
+	c.JSON(200, resp)
+
+}
+
+func warpTeacherAddStudentToRoom(c *gin.Context) {
+	req := &pb_gen.AddStudentToRoomRequest{}
+	resp := &pb_gen.AddStudentToRoomResponse{}
+	c.ShouldBindQuery(req)
+	handler := room_method.AddStudentToRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	handler.Run()
+	c.JSON(200, resp)
+
+}
+
+func warpTeacherCheckStudentToRoom(c *gin.Context) {
+	req := &pb_gen.TeacherCheckStudentToRoomRequest{}
+	resp := &pb_gen.TeacherCheckStudentToRoomResponse{}
+	c.ShouldBindQuery(req)
+	handler := room_method.TeacherCheckStudentToRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	handler.Run()
+	c.JSON(200, resp)
+}
+
+func warpTeacherGetCanReviewingRoomList(c *gin.Context) {
+	req := &pb_gen.TeacherGetCanReviewingRoomListRequest{}
+	resp := &pb_gen.TeacherGetCanReviewingRoomListResponse{}
+	c.ShouldBindQuery(req)
+	handler := room_method.TeacherGetCanReviewingRoomListHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	handler.Run()
+	c.JSON(200, resp)
 }
 
 func warpAddStudentRoRoom(c *gin.Context) {
 	req := &pb_gen.AddStudentToRoomRequest{}
 	resp := &pb_gen.AddStudentToRoomResponse{}
 	c.ShouldBindQuery(&req) // 按照json格式解析出来
-
+	handler := room_method.AddStudentToRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	handler.Run()
 	c.JSON(200, resp)
 }
 
 func warpMangerCheckReviewingRoom(c *gin.Context) {
-	req := &pb_gen.CreateRoomRequest{}
-	resp := &pb_gen.CreateRoomResponse{}
+	req := &pb_gen.ManagerCheckReviewingRoomRequest{}
+	resp := &pb_gen.ManagerCheckReviewingRoomResponse{}
 	c.ShouldBindQuery(&req) // 按照json格式解析出来
-	createRoomHandler := &room_method.CreateRoomHandler{
+	handler := room_method.ManagerCheckReviewingRoomHandler{
 		Req:  req,
 		Resp: resp,
 	}
-	createRoomHandler.Run()
+	handler.Run()
 	c.JSON(200, resp)
 
 }

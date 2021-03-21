@@ -29,7 +29,7 @@ func (c *CreateRoomHandler) Run() {
 		c.Resp.ErrTips = "参数错误"
 		return
 	}
-	createRoomManager = room_logic.NewCreateRoomManager(c.Req.TeacherId, c.Req.GetRoomCapcity(), c.Req.GetRoomName())
+	createRoomManager = room_logic.NewCreateRoomManager(c.Req.ManagerId, c.Req.GetRoomCapcity(), c.Req.GetRoomName())
 	if err = createRoomManager.Process(); err != nil {
 		return
 	}

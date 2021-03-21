@@ -1,10 +1,6 @@
 syntax = "proto3";
+import "user_info.proto";
 package pb_gen;
-enum Sex {
-  Unknow = 0;
-  Man = 1;
-  Woman = 2;
-}
 
 message AddUserRequest {
   string user_name = 1;

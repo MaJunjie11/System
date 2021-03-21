@@ -30,9 +30,13 @@ func (m *ManagerCheckReviewingRoomHandler) Run() {
 		return
 	}
 	roomInfo.RoomStatus = pb_gen.RoomStatus_Usering
+	roomInfo.TeacherId = m.Req.TeacherId
 	err = room_dal.ModifyRoomInfo(roomInfo)
 	if err != nil {
 
 	}
+	// 修改教室状态为使用中
 	room_dal.ModifyRoomStatus(pb_gen.RoomStatus_Usering, m.Req.RoomId)
+	// 绑定当前教室所属老师
+	room_dal.ModifyRoomTeacher(m.Req.RoomId, m.Req.TeacherId)
 }

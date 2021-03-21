@@ -9,6 +9,28 @@ import (
 	"github.com/skoo87/log4go"
 )
 
+func GetCreatingRoomFromDB() ([]*pb_gen.RoomInfo, error) {
+	var (
+		err          error
+		roomInfoList []*pb_gen.RoomInfo = make([]*pb_gen.RoomInfo, 0)
+		roomInfo     *pb_gen.RoomInfo   = &pb_gen.RoomInfo{}
+	)
+	common.InitDB()
+	defer common.ClosDB()
+	queryStr := fmt.Sprintf("select roomInfo from room where roomStatus = %d", int32(pb_gen.RoomStatus_Creating))
+	rows, err := common.DB.Query(queryStr)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		var roomInfoStr string
+		rows.Scan(&roomInfoStr)
+		jsoniter.UnmarshalFromString(roomInfoStr, roomInfo)
+		roomInfoList = append(roomInfoList, roomInfo)
+	}
+	return roomInfoList, nil
+}
+
 func CreateRoomToDB(roomInfo *pb_gen.RoomInfo) error {
 	var roomInfoStr string
 	roomInfoStr, _ = jsoniter.MarshalToString(roomInfo)
@@ -27,6 +49,15 @@ func ModifyRoomStatus(roomStatus pb_gen.RoomStatus, roomId int64) error {
 	queryStr := fmt.Sprintf("update room set roomStatus = %d where roomId = %d", int32(roomStatus), roomId)
 	common.DB.Query(queryStr)
 	return nil
+}
+
+func ModifyRoomTeacher(roomId, teacherId int64) error {
+	common.InitDB()
+	defer common.ClosDB()
+	queryStr := fmt.Sprintf("update room set teacherId = %d where roomId = %d", teacherId, roomId)
+	common.DB.Query(queryStr)
+	return nil
+
 }
 
 // 管理员获取审核中教室列表

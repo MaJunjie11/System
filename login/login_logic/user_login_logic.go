@@ -2,7 +2,7 @@ package login_logic
 
 import (
 	"System/common/common_dal"
-	"System/user/user_moudle"
+	"System/pb_gen"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -10,7 +10,7 @@ import (
 type UserLoginLogicMgr struct {
 	phone       string
 	passWord    string
-	userInfo    *user_moudle.UserInfo
+	userInfo    *pb_gen.UserInfo
 	LoginStatus int32
 }
 
@@ -46,7 +46,7 @@ func (u *UserLoginLogicMgr) Process() error {
 }
 
 func (u *UserLoginLogicMgr) CheckUserLogin() bool {
-	err := bcrypt.CompareHashAndPassword([]byte(u.userInfo.Passworld), []byte(u.passWord))
+	err := bcrypt.CompareHashAndPassword([]byte(u.userInfo.PassWord), []byte(u.passWord))
 	if err != nil {
 		return false
 	}

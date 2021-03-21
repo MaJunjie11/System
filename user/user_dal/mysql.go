@@ -2,7 +2,7 @@ package user_dal
 
 import (
 	"System/common"
-	"System/user/user_moudle"
+	"System/pb_gen"
 	"fmt"
 
 	jsoniter "github.com/json-iterator/go"
@@ -10,7 +10,7 @@ import (
 	"github.com/skoo87/log4go"
 )
 
-func AddUserInfoToDB(userInfo *user_moudle.UserInfo) error {
+func AddUserInfoToDB(userInfo *pb_gen.UserInfo) error {
 	var userInfoStr string
 	userInfoStr, _ = jsoniter.MarshalToString(userInfo)
 	common.InitDB()

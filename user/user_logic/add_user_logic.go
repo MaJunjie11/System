@@ -1,8 +1,8 @@
 package user_logic
 
 import (
+	"System/pb_gen"
 	"System/user/user_dal"
-	"System/user/user_moudle"
 	"System/util"
 	"fmt"
 
@@ -50,7 +50,7 @@ func (u *UserLogicMgr) Process() error {
 	var (
 		hasUser  bool
 		err      error
-		userInfo *user_moudle.UserInfo
+		userInfo *pb_gen.UserInfo
 	)
 	// 1.幂等校验
 	if hasUser, err = u.checkIfHasUser(); err != nil {
@@ -86,16 +86,16 @@ func (u *UserLogicMgr) checkIfHasUser() (bool, error) {
 	return user_dal.CheckIfHasUserFromDB(u.TelephoneNum)
 }
 
-func (u *UserLogicMgr) packUserInfo() *user_moudle.UserInfo {
-	return &user_moudle.UserInfo{
-		Uid:       u.Uid,
-		Name:      u.UserName,
-		Sex:       u.Sex,
-		Phone:     u.TelephoneNum,
-		Passworld: u.ECPwd,
+func (u *UserLogicMgr) packUserInfo() *pb_gen.UserInfo {
+	return &pb_gen.UserInfo{
+		Uid:      u.Uid,
+		Name:     u.UserName,
+		Sex:      pb_gen.Sex(u.Sex),
+		Phone:    u.TelephoneNum,
+		PassWord: u.ECPwd,
 	}
 }
 
-func (u *UserLogicMgr) addUserToDB(userInfo *user_moudle.UserInfo) error {
+func (u *UserLogicMgr) addUserToDB(userInfo *pb_gen.UserInfo) error {
 	return user_dal.AddUserInfoToDB(userInfo)
 }

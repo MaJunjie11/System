@@ -1,0 +1,25 @@
+syntax = "proto3";
+package pb_gen;
+
+message UserInfo {
+  int64 uid = 1;
+  string name = 2;
+  Sex sex = 3;
+  string phone = 4;
+  int32 age = 5;
+  string pass_word = 6;
+  UserType user_type = 7;
+}
+
+enum Sex {
+  SexUnknow = 0;
+  SexMan = 1;
+  SexWoman = 2;
+}
+
+enum UserType {
+  UserTypeUnknow = 0;
+  UserTypeStudent = 1;
+  UserTypeTeacher = 2;
+  UserTypeManager = 3;
+}

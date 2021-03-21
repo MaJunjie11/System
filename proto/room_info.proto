@@ -1,4 +1,3 @@
-
 syntax = "proto3";
 package pb_gen;
 
@@ -14,7 +13,8 @@ message RoomInfo {
 
 enum RoomStatus {
   Unknow = 0;
-  Reviewing = 1;
-  Usering = 2;
-  Closing = 3;
+  Creating = 1;  //创建
+  Reviewing = 2; //审核
+  Usering = 3;   //审核
+  Closing = 4;   //关闭
 }

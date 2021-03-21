@@ -1,5 +1,7 @@
 syntax = "proto3";
 import "room_info.proto";
+import "user.proto";
+import "user_info.proto";
 package pb_gen;
 
 enum RoomCapcity {
@@ -9,7 +11,7 @@ enum RoomCapcity {
 }
 // 创建申请教室接口
 message CreateRoomRequest {
-  int64 teacher_id = 1;
+  int64 manager_id = 1;
   RoomCapcity room_capcity = 2;
   string room_name = 3;
 }
@@ -29,7 +31,7 @@ message ManagerGetReviewingRoomResponse {
   string err_tips = 4;
 }
 
-// 管理员审核教室创建接口
+// 管理员审核教室申请接口
 message ManagerCheckReviewingRoomRequest {
   int64 room_id = 1;
   int64 teacher_id = 2; //申请的老师
@@ -38,6 +40,15 @@ message ManagerCheckReviewingRoomRequest {
 message ManagerCheckReviewingRoomResponse {
   int32 err_no = 1;
   string err_tips = 2;
+}
+
+// 老师拉取creating状态的列表
+message TeacherGetCanReviewingRoomListRequest { int64 teacher_id = 1; }
+
+message TeacherGetCanReviewingRoomListResponse {
+  repeated RoomInfo roomInfoList = 1;
+  int32 err_no = 2;
+  string err_tips = 3;
 }
 
 // 学生自主申请加入教室接口
@@ -53,20 +64,51 @@ message AddStudentToRoomResponse {
 
 // 老师添加学生加入教室接口
 message TeacherAddStudentToRoomRequest {
-  int64 room_id = 1;
-  int64 student_id = 2;
+  int64 teacher_id = 1;
+  int64 room_id = 2;
+  int64 student_id = 3;
 }
 
 message TeacherAddStudentToRoomResponse {
   int32 err_no = 1;
   string err_tips = 2;
 }
-// 老师审核学生加入结果
-message CheckStudentToRoomRequest {
-  int64 room_id = 1;
-  int64 check_status = 2; // 0 通过  1不通过
+
+// 老师获取申请准备加入教室的学生列表
+message TeacherGetReqAddRoomStudentListRequest {
+  int64 teacher_id = 1;
+  int64 room_id = 2;
 }
-message CheckStudentToRoomResponse {
+
+message TeacherGetReqAddRoomStudentListResponse {
+  repeated UserInfo user_info_list = 1;
+  int32 err_no = 2;
+  string err_tips = 3;
+}
+
+// 老师审核学生加入结果
+message TeacherCheckStudentToRoomRequest {
+  int64 room_id = 1;
+  int64 student_id = 2;
+  int64 teacher_id = 3;
+  int64 check_status = 4; // 0 通过  1不通过
+}
+message TeacherCheckStudentToRoomResponse {
   int32 err_no = 1;
   string err_tips = 2;
 }
+
+//老师拉去审核使用中教室列表
+message TeacherGetReviewingRoomRequest { int64 teacherId = 1; }
+
+message TeacherGetReviewingRoomResponse {
+  repeated RoomInfo room_info_list = 1;
+  int32 err_no = 2;
+  string err_tips = 3;
+}
+
+// 学生拉去审核加入中教室列表
+
+// 老师归还教室
+
+// 管理员修改关闭教室
