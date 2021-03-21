@@ -14,19 +14,21 @@ type UserLogicMgr struct {
 	UserName     string
 	Passworld    string
 	TelephoneNum string
+	UserType     pb_gen.UserType
 	Sex          int32
 	Uid          int64
 	Age          int32
 	ECPwd        string
 }
 
-func NewUserLogicMgr(userName, passWorld, telephoneNum string, sex, age int32) *UserLogicMgr {
+func NewUserLogicMgr(userName, passWorld, telephoneNum string, sex, age int32, userType pb_gen.UserType) *UserLogicMgr {
 	return &UserLogicMgr{
 		UserName:     userName,
 		Passworld:    passWorld,
 		TelephoneNum: telephoneNum,
 		Sex:          sex,
 		Age:          age,
+		UserType:     userType,
 	}
 }
 
