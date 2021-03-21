@@ -21,17 +21,35 @@ func CreateRoomToDB(roomInfo *pb_gen.RoomInfo) error {
 }
 
 // 目前看来创建以后只有status会改变
-func ModifyRoomStatus(roomStatus pb_gen.RoomStatus) error {
+func ModifyRoomStatus(roomStatus pb_gen.RoomStatus, roomId int64) error {
 	common.InitDB()
 	defer common.ClosDB()
-	queryStr := fmt.Sprintf("update room set roomStatus = %d", int32(roomStatus))
+	queryStr := fmt.Sprintf("update room set roomStatus = %d where roomId = %d", int32(roomStatus), roomId)
 	common.DB.Query(queryStr)
 	return nil
 }
 
 // 管理员获取审核中教室列表
-func MangerGetReviewingRoom() []*pb_gen.RoomInfo {
-	return nil
+func MangerGetReviewingRoom() ([]*pb_gen.RoomInfo, error) {
+	var (
+		roomInfoList []*pb_gen.RoomInfo = make([]*pb_gen.RoomInfo, 0)
+		roomInfo     *pb_gen.RoomInfo   = &pb_gen.RoomInfo{}
+		err          error
+	)
+	common.InitDB()
+	defer common.ClosDB()
+	queryStr := fmt.Sprintf("select roomInfo from room where roomStatus = %d", int32(pb_gen.RoomStatus_Reviewing))
+	rows, err := common.DB.Query(queryStr)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		var roomInfoStr string
+		rows.Scan(&roomInfoStr)
+		jsoniter.UnmarshalFromString(roomInfoStr, roomInfo)
+		roomInfoList = append(roomInfoList, roomInfo)
+	}
+	return roomInfoList, nil
 }
 
 // 老师获取审核中的教室

@@ -9,6 +9,15 @@ import (
 	"github.com/skoo87/log4go"
 )
 
+func TeacherAddStudentToRoom(roomId, userId, teacherId int64) error {
+	return nil
+}
+
+func AddStudentToRoom(roomId, userId int64) error {
+	//TODO: 注意这里需要是待审核状态
+	return nil
+}
+
 // 通过phone拿到用户的Info 后续在userInfo中扩充字段
 func GetUserInfoByPhone(phone string) (bool, *user_moudle.UserInfo, error) {
 	var (

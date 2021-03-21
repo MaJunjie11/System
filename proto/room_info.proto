@@ -9,6 +9,7 @@ message RoomInfo {
   int64 room_reviewer_id = 4; //教室审核人的id 特指管理员
   string room_name = 5;       //教室的名字
   RoomStatus room_status = 6; //教室的状态
+  int64 RoomCapcity = 7;
 }
 
 enum RoomStatus {

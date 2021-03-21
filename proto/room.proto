@@ -20,9 +20,9 @@ message CreateRoomResponse {
 }
 
 // 管理员拉取待审核创建教室列表
-message ManagerGetReviewRoomRequest { int64 manager_id = 1; }
+message ManagerGetReviewingRoomRequest { int64 manager_id = 1; }
 
-message ManegerGetReviewRoomReponse {
+message ManagerGetReviewingRoomResponse {
   int64 user_type = 1;
   repeated RoomInfo room_info_list = 2;
   int32 err_no = 3;
@@ -30,13 +30,12 @@ message ManegerGetReviewRoomReponse {
 }
 
 // 管理员审核教室创建接口
-message ManagerCreateRoomRequest {
-  int64 check_status = 1;
-  int64 room_id = 2;
-  int64 teacher_id = 3; //申请的老师
+message ManagerCheckReviewingRoomRequest {
+  int64 room_id = 1;
+  int64 teacher_id = 2; //申请的老师
 }
 
-message ManegerCreateRoomRequest {
+message ManagerCheckReviewingRoomResponse {
   int32 err_no = 1;
   string err_tips = 2;
 }

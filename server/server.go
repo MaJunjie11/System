@@ -38,6 +38,29 @@ func SetRoute(r *gin.Engine) {
 	r.GET("/user_login", warpUserLogin)
 	r.GET("/user_add", warpAddUser)
 	r.GET("/create_room", warpCreateRoom)
+	r.GET("/manager_get_reviewing_room", warpManagerGetReeviewingRoom)
+	r.GET("/manager_check_reviewing_room", warpMangerCheckReviewingRoom)
+}
+
+func warpAddStudentRoRoom(c *gin.Context) {
+	req := &pb_gen.AddStudentToRoomRequest{}
+	resp := &pb_gen.AddStudentToRoomResponse{}
+	c.ShouldBindQuery(&req) // 按照json格式解析出来
+
+	c.JSON(200, resp)
+}
+
+func warpMangerCheckReviewingRoom(c *gin.Context) {
+	req := &pb_gen.CreateRoomRequest{}
+	resp := &pb_gen.CreateRoomResponse{}
+	c.ShouldBindQuery(&req) // 按照json格式解析出来
+	createRoomHandler := &room_method.CreateRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	createRoomHandler.Run()
+	c.JSON(200, resp)
+
 }
 
 func warpCreateRoom(c *gin.Context) {
@@ -50,6 +73,19 @@ func warpCreateRoom(c *gin.Context) {
 	}
 	createRoomHandler.Run()
 	c.JSON(200, resp)
+}
+
+func warpManagerGetReeviewingRoom(c *gin.Context) {
+	req := &pb_gen.ManagerGetReviewingRoomRequest{}
+	resp := &pb_gen.ManagerGetReviewingRoomResponse{}
+	c.ShouldBindUri(&req)
+	managerGetReviewingRoomHandler := room_method.ManagerGetReviewingRoomHandler{
+		Req:  req,
+		Resp: resp,
+	}
+	managerGetReviewingRoomHandler.Run()
+	c.JSON(200, resp)
+
 }
 
 func warpAddUser(c *gin.Context) {
