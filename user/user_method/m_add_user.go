@@ -2,41 +2,26 @@ package user_method
 
 import (
 	"System/pb_gen"
-	"System/user/user_logic"
-	"fmt"
-	"log"
-
-	"github.com/skoo87/log4go"
 )
 
-type AddUserHander struct {
-	Req  *pb_gen.AddUserRequest
-	Resp *pb_gen.AddUserResponse
+type AddStudentHandler struct {
+	Req  *pb_gen.AddStudentRequest
+	Resp *pb_gen.AddStudentResponse
 }
 
-func (u *AddUserHander) Run() {
-	// checkParam
-	var err error
-	if err = u.checkParam(); err != nil {
-		log.Fatal(fmt.Sprintf("err in UserLoginHander checkParam:%v", err))
-		return
+func NewAddUserHandler(req *pb_gen.AddStudentRequest, resp *pb_gen.AddStudentResponse) *AddStudentHandler {
+	return &AddStudentHandler{
+		Req:  req,
+		Resp: resp,
 	}
-
-	userName := u.Req.GetUserName()
-	passworld := u.Req.GetPassworld()
-	sex := u.Req.GetSex()
-	phoneNum := u.Req.GetTelephoneNum()
-	age := u.Req.GetAge()
-	// 1. 到数据库查询是否已经有这个用户
-	// 2. 如果不存在 那么将这个用户添加
-	userLogicMgr := user_logic.NewUserLogicMgr(userName, passworld, phoneNum, int32(sex), age, u.Req.UserType)
-	if err = userLogicMgr.Process(); err != nil {
-		log4go.Error("m_add_user err:%v", err)
-		return
-	}
-	u.Resp.Uid = userLogicMgr.Uid
 }
 
-func (u *AddUserHander) checkParam() error {
-	return nil
+func (u *AddStudentHandler) Run() {
+	// 1.对比验证码
+	// 2.检测是否已注册
+	// 3.对比password
+	// 4.生成uid
+	// 5.user信息入库
+	// 6.返回成功信息
+
 }

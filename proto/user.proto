@@ -2,22 +2,23 @@ syntax = "proto3";
 import "user_info.proto";
 package pb_gen;
 
-message AddUserRequest {
-  string user_name = 1;
-  string passworld = 2;
-  string telephone_num = 3;
-  Sex sex = 4;
-  int32 age = 5;
-  UserType user_type = 6;
+message AddStudentRequest {
+  string email = 1;           //邮件
+  string autoNum = 2;         //验证码
+  string pass_word = 3;       //密码
+  string mutil_pass_word = 4; // 确认密码
 };
 
-message AddUserResponse {
-  int32 err_no = 1;
-  string err_tips = 2;
-  int64 uid = 3;
-  UserType user_type = 4;
+message AddStudentResponse {
+  int32 status = 1;
+  string msg = 2;
 };
 
-service LoginService {
-  rpc AddUser(AddUserRequest) returns (AddUserResponse) {}
+message SendEmailRequest {
+  string email = 1; //用户传递的eamil地址
+}
+
+message SendEmailResponse {
+  int32 status = 1;
+  string msg = 2;
 }

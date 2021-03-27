@@ -1,0 +1,12 @@
+syntax = "proto3";
+package pb_gen;
+
+message AmisDemoRequest {
+  string name = 1;
+  int32 age = 2;
+}
+
+message AmisDemoResponse {
+  int64 status = 1;
+  string tips = 2;
+}

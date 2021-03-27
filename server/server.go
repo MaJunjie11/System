@@ -2,12 +2,14 @@ package server
 
 import (
 	"System/login/login_method"
+	"System/message/message_method"
 	"System/pb_gen"
 	"System/room/room_method"
 	"System/user/user_method"
-	"strconv"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/skoo87/log4go"
 )
 
 func Cors() gin.HandlerFunc {
@@ -17,7 +19,7 @@ func Cors() gin.HandlerFunc {
 			origin = c.Request.Header.Get("Origin")
 		}
 		//接收客户端发送的origin （重要！）
-		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Origin", origin)
 		//允许客户端传递校验信息比如 cookie (重要)
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
@@ -35,6 +37,7 @@ func Cors() gin.HandlerFunc {
 }
 func SetRoute(r *gin.Engine) {
 	r.Use(Cors())
+	r.POST("/amisdemo", warpAmisDemo)
 	r.GET("/user_login", warpUserLogin)
 	r.GET("/user_add", warpAddUser)
 	r.GET("/create_room", warpCreateRoom)
@@ -45,6 +48,18 @@ func SetRoute(r *gin.Engine) {
 	r.GET("/teacher_check_student_to_room", warpTeacherCheckStudentToRoom)
 	r.GET("/teacher_add_student_to_room", warpTeacherAddStudentToRoom)
 	r.GET("/teacher_get_req_add_room_studentlist", warpTeacherGetReqAddRoomStudentList)
+	r.POST("/send_email", warpSendEmail)
+}
+
+func warpSendEmail(c *gin.Context) {
+	req := &pb_gen.SendEmailRequest{}
+	resp := &pb_gen.SendEmailResponse{}
+
+	handler := message_method.NewSendEmailHandler(req, resp)
+	handler.Run()
+
+	c.ShouldBind(req)
+	c.JSON(http.StatusOK, resp)
 }
 
 func warpTeacherGetReqAddRoomStudentList(c *gin.Context) {
@@ -148,36 +163,23 @@ func warpManagerGetReeviewingRoom(c *gin.Context) {
 }
 
 func warpAddUser(c *gin.Context) {
-	req := pb_gen.AddUserRequest{}
-	resp := pb_gen.AddUserResponse{}
+	req := &pb_gen.AddStudentRequest{}
+	resp := &pb_gen.AddStudentResponse{}
+	c.ShouldBind(req)
+	handler := user_method.NewAddUserHandler(req, resp)
+	handler.Run()
 
-	sexStr := c.Query("sex")
-	userName := c.Query("userName")
-	passWord := c.Query("passWord")
-	telephoneNum := c.Query("telephoneNum")
-	ageStr := c.Query("age")
+	c.JSON(http.StatusOK, resp)
+}
 
-	sex, err := strconv.ParseInt(sexStr, 10, 64)
-	age, err := strconv.ParseInt(ageStr, 10, 64)
-
-	if err != nil {
-
-	}
-	req.UserName = userName
-	req.Passworld = passWord
-	req.Sex = pb_gen.Sex(sex)
-	req.TelephoneNum = telephoneNum
-	req.Age = int32(age)
-	addUserHandler := user_method.AddUserHander{
-		Req:  &req,
-		Resp: &resp,
-	}
-	addUserHandler.Run()
-	c.JSON(200, gin.H{
-		"errNo":   resp.ErrNo,
-		"errTips": resp.ErrTips,
-		"uid":     resp.Uid,
-	})
+func warpAmisDemo(c *gin.Context) {
+	name := c.PostForm("name")
+	log4go.Info("name:%s", name)
+	resp := pb_gen.UserLoginResponse{}
+	resp.ErrNo = 1
+	resp.ErrTips = "2"
+	resp.LoginStatus = 3
+	c.JSON(200, &resp)
 }
 
 func warpUserLogin(c *gin.Context) {

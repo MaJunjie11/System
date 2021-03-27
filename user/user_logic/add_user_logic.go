@@ -39,7 +39,7 @@ func (u *UserLogicMgr) EnCodePwd() error {
 		hasCode []byte
 	)
 	if hasCode, err = bcrypt.GenerateFromPassword([]byte(u.Passworld), bcrypt.DefaultCost); err != nil {
-		// TODO: 后续增加log模块
+		log4go.Error("UserLogicMgr EnCodePwd err:%v", err)
 		return err
 	}
 	// 保存在数据库中的密码 虽然每次不一样 但是只需要保存一份即可
@@ -93,7 +93,7 @@ func (u *UserLogicMgr) packUserInfo() *pb_gen.UserInfo {
 		Uid:      u.Uid,
 		Name:     u.UserName,
 		Sex:      pb_gen.Sex(u.Sex),
-		Phone:    u.TelephoneNum,
+		Email:    u.TelephoneNum,
 		PassWord: u.ECPwd,
 	}
 }

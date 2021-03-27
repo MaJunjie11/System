@@ -59,7 +59,7 @@ func StudentApplyAddToRoom(roomId, userId, teacherId int64) error {
 }
 
 // 通过phone拿到用户的Info 后续在userInfo中扩充字段
-func GetUserInfoByPhone(phone string) (bool, *pb_gen.UserInfo, error) {
+func GetUserInfoByEmail(email string) (bool, *pb_gen.UserInfo, error) {
 	var (
 		err         error
 		userInfoStr string
@@ -68,8 +68,8 @@ func GetUserInfoByPhone(phone string) (bool, *pb_gen.UserInfo, error) {
 	common.InitDB()
 	defer common.ClosDB()
 
-	queryStr := fmt.Sprintf("select userInfo from user where phone =%s", phone)
-	row := common.DB.QueryRow("select userInfo from user where phone = ?", phone)
+	queryStr := fmt.Sprintf("select userInfo from user where email =%s", email)
+	row := common.DB.QueryRow("select userInfo from user where email = ?", email)
 	if row == nil {
 		log4go.Error("queryDB faild row is nil:queryStr:%s", queryStr)
 		return false, nil, nil
@@ -102,7 +102,7 @@ func GetUsrInfoByUid(uid int64) (*pb_gen.UserInfo, error) {
 	common.InitDB()
 	defer common.ClosDB()
 
-	queryStr := fmt.Sprintf("select phone from user where uid=%d", uid)
+	queryStr := fmt.Sprintf("select email from user where uid=%d", uid)
 
 	if err = common.DB.QueryRow(queryStr).Scan(userInfoStr); err != nil {
 		log4go.Error("queryDB faild:queryStr:%s err:%v", queryStr, err)

@@ -54,7 +54,7 @@ func (u *UserLoginLogicMgr) CheckUserLogin() bool {
 }
 
 func (u *UserLoginLogicMgr) loadUserInfo() error {
-	hasUser, userInfo, err := common_dal.GetUserInfoByPhone(u.phone)
+	hasUser, userInfo, err := common_dal.GetUserInfoByEmail(u.phone)
 	if err != nil {
 		return err
 	}

@@ -17,7 +17,7 @@ func AddUserInfoToDB(userInfo *pb_gen.UserInfo) error {
 	defer common.ClosDB()
 	fmt.Print(userInfoStr)
 	// id userInfoJson uid phone  后续优化索引
-	queryStr := fmt.Sprintf("insert into user values(1,'%s','%d', '%s')", userInfoStr, userInfo.Uid, userInfo.Phone)
+	queryStr := fmt.Sprintf("insert into user values(1,'%s','%d', '%s')", userInfoStr, userInfo.Uid, userInfo.Email)
 	common.DB.Query(queryStr)
 	return nil
 }

@@ -1,0 +1,8 @@
+{
+  "host":"127.0.0.1",
+  "port":"3306",
+  "user_name":"debian-sys-maint",
+  "password":"e6xVfD1Asr83wP56",
+  "database":"myserver",
+  "logo_mode":true
+}

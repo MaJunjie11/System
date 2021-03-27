@@ -5,7 +5,7 @@ message UserInfo {
   int64 uid = 1;
   string name = 2;
   Sex sex = 3;
-  string phone = 4;
+  string email = 4; // 通过邮箱注册
   int32 age = 5;
   string pass_word = 6;
   UserType user_type = 7;

@@ -25,21 +25,19 @@ const (
 // of the legacy proto package is being used.
 const _ = proto.ProtoPackageIsVersion4
 
-type AddUserRequest struct {
+type AddStudentRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	UserName     string   `protobuf:"bytes,1,opt,name=user_name,json=userName,proto3" json:"user_name,omitempty"`
-	Passworld    string   `protobuf:"bytes,2,opt,name=passworld,proto3" json:"passworld,omitempty"`
-	TelephoneNum string   `protobuf:"bytes,3,opt,name=telephone_num,json=telephoneNum,proto3" json:"telephone_num,omitempty"`
-	Sex          Sex      `protobuf:"varint,4,opt,name=sex,proto3,enum=pb_gen.Sex" json:"sex,omitempty"`
-	Age          int32    `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
-	UserType     UserType `protobuf:"varint,6,opt,name=user_type,json=userType,proto3,enum=pb_gen.UserType" json:"user_type,omitempty"`
+	Email         string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"`                                        //邮件
+	AutoNum       string `protobuf:"bytes,2,opt,name=autoNum,proto3" json:"autoNum,omitempty"`                                    //验证码
+	PassWord      string `protobuf:"bytes,3,opt,name=pass_word,json=passWord,proto3" json:"pass_word,omitempty"`                  //密码
+	MutilPassWord string `protobuf:"bytes,4,opt,name=mutil_pass_word,json=mutilPassWord,proto3" json:"mutil_pass_word,omitempty"` // 确认密码
 }
 
-func (x *AddUserRequest) Reset() {
-	*x = AddUserRequest{}
+func (x *AddStudentRequest) Reset() {
+	*x = AddStudentRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_user_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -47,13 +45,13 @@ func (x *AddUserRequest) Reset() {
 	}
 }
 
-func (x *AddUserRequest) String() string {
+func (x *AddStudentRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddUserRequest) ProtoMessage() {}
+func (*AddStudentRequest) ProtoMessage() {}
 
-func (x *AddUserRequest) ProtoReflect() protoreflect.Message {
+func (x *AddStudentRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_user_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -65,66 +63,50 @@ func (x *AddUserRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddUserRequest.ProtoReflect.Descriptor instead.
-func (*AddUserRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddStudentRequest.ProtoReflect.Descriptor instead.
+func (*AddStudentRequest) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *AddUserRequest) GetUserName() string {
+func (x *AddStudentRequest) GetEmail() string {
 	if x != nil {
-		return x.UserName
+		return x.Email
 	}
 	return ""
 }
 
-func (x *AddUserRequest) GetPassworld() string {
+func (x *AddStudentRequest) GetAutoNum() string {
 	if x != nil {
-		return x.Passworld
+		return x.AutoNum
 	}
 	return ""
 }
 
-func (x *AddUserRequest) GetTelephoneNum() string {
+func (x *AddStudentRequest) GetPassWord() string {
 	if x != nil {
-		return x.TelephoneNum
+		return x.PassWord
 	}
 	return ""
 }
 
-func (x *AddUserRequest) GetSex() Sex {
+func (x *AddStudentRequest) GetMutilPassWord() string {
 	if x != nil {
-		return x.Sex
+		return x.MutilPassWord
 	}
-	return Sex_SexUnknow
+	return ""
 }
 
-func (x *AddUserRequest) GetAge() int32 {
-	if x != nil {
-		return x.Age
-	}
-	return 0
-}
-
-func (x *AddUserRequest) GetUserType() UserType {
-	if x != nil {
-		return x.UserType
-	}
-	return UserType_UserTypeUnknow
-}
-
-type AddUserResponse struct {
+type AddStudentResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	ErrNo    int32    `protobuf:"varint,1,opt,name=err_no,json=errNo,proto3" json:"err_no,omitempty"`
-	ErrTips  string   `protobuf:"bytes,2,opt,name=err_tips,json=errTips,proto3" json:"err_tips,omitempty"`
-	Uid      int64    `protobuf:"varint,3,opt,name=uid,proto3" json:"uid,omitempty"`
-	UserType UserType `protobuf:"varint,4,opt,name=user_type,json=userType,proto3,enum=pb_gen.UserType" json:"user_type,omitempty"`
+	Status int32  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Msg    string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
 }
 
-func (x *AddUserResponse) Reset() {
-	*x = AddUserResponse{}
+func (x *AddStudentResponse) Reset() {
+	*x = AddStudentResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_user_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -132,13 +114,13 @@ func (x *AddUserResponse) Reset() {
 	}
 }
 
-func (x *AddUserResponse) String() string {
+func (x *AddStudentResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AddUserResponse) ProtoMessage() {}
+func (*AddStudentResponse) ProtoMessage() {}
 
-func (x *AddUserResponse) ProtoReflect() protoreflect.Message {
+func (x *AddStudentResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_user_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -150,37 +132,125 @@ func (x *AddUserResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AddUserResponse.ProtoReflect.Descriptor instead.
-func (*AddUserResponse) Descriptor() ([]byte, []int) {
+// Deprecated: Use AddStudentResponse.ProtoReflect.Descriptor instead.
+func (*AddStudentResponse) Descriptor() ([]byte, []int) {
 	return file_user_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *AddUserResponse) GetErrNo() int32 {
+func (x *AddStudentResponse) GetStatus() int32 {
 	if x != nil {
-		return x.ErrNo
+		return x.Status
 	}
 	return 0
 }
 
-func (x *AddUserResponse) GetErrTips() string {
+func (x *AddStudentResponse) GetMsg() string {
 	if x != nil {
-		return x.ErrTips
+		return x.Msg
 	}
 	return ""
 }
 
-func (x *AddUserResponse) GetUid() int64 {
+type SendEmailRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Email string `protobuf:"bytes,1,opt,name=email,proto3" json:"email,omitempty"` //用户传递的eamil地址
+}
+
+func (x *SendEmailRequest) Reset() {
+	*x = SendEmailRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendEmailRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendEmailRequest) ProtoMessage() {}
+
+func (x *SendEmailRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendEmailRequest.ProtoReflect.Descriptor instead.
+func (*SendEmailRequest) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *SendEmailRequest) GetEmail() string {
 	if x != nil {
-		return x.Uid
+		return x.Email
+	}
+	return ""
+}
+
+type SendEmailResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Status int32  `protobuf:"varint,1,opt,name=status,proto3" json:"status,omitempty"`
+	Msg    string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *SendEmailResponse) Reset() {
+	*x = SendEmailResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_user_proto_msgTypes[3]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SendEmailResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SendEmailResponse) ProtoMessage() {}
+
+func (x *SendEmailResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_user_proto_msgTypes[3]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SendEmailResponse.ProtoReflect.Descriptor instead.
+func (*SendEmailResponse) Descriptor() ([]byte, []int) {
+	return file_user_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *SendEmailResponse) GetStatus() int32 {
+	if x != nil {
+		return x.Status
 	}
 	return 0
 }
 
-func (x *AddUserResponse) GetUserType() UserType {
+func (x *SendEmailResponse) GetMsg() string {
 	if x != nil {
-		return x.UserType
+		return x.Msg
 	}
-	return UserType_UserTypeUnknow
+	return ""
 }
 
 var File_user_proto protoreflect.FileDescriptor
@@ -188,34 +258,27 @@ var File_user_proto protoreflect.FileDescriptor
 var file_user_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x75, 0x73, 0x65, 0x72, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x06, 0x70, 0x62,
 	0x5f, 0x67, 0x65, 0x6e, 0x1a, 0x0f, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x6e, 0x66, 0x6f, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0xd0, 0x01, 0x0a, 0x0e, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65,
-	0x72, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1b, 0x0a, 0x09, 0x75, 0x73, 0x65, 0x72,
-	0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x75, 0x73, 0x65,
-	0x72, 0x4e, 0x61, 0x6d, 0x65, 0x12, 0x1c, 0x0a, 0x09, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f, 0x72,
-	0x6c, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x70, 0x61, 0x73, 0x73, 0x77, 0x6f,
-	0x72, 0x6c, 0x64, 0x12, 0x23, 0x0a, 0x0d, 0x74, 0x65, 0x6c, 0x65, 0x70, 0x68, 0x6f, 0x6e, 0x65,
-	0x5f, 0x6e, 0x75, 0x6d, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x74, 0x65, 0x6c, 0x65,
-	0x70, 0x68, 0x6f, 0x6e, 0x65, 0x4e, 0x75, 0x6d, 0x12, 0x1d, 0x0a, 0x03, 0x73, 0x65, 0x78, 0x18,
-	0x04, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x0b, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x53,
-	0x65, 0x78, 0x52, 0x03, 0x73, 0x65, 0x78, 0x12, 0x10, 0x0a, 0x03, 0x61, 0x67, 0x65, 0x18, 0x05,
-	0x20, 0x01, 0x28, 0x05, 0x52, 0x03, 0x61, 0x67, 0x65, 0x12, 0x2d, 0x0a, 0x09, 0x75, 0x73, 0x65,
-	0x72, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x70,
-	0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x55, 0x73, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65, 0x52, 0x08,
-	0x75, 0x73, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65, 0x22, 0x84, 0x01, 0x0a, 0x0f, 0x41, 0x64, 0x64,
-	0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x15, 0x0a, 0x06,
-	0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65, 0x72,
-	0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65, 0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x12, 0x10,
-	0x0a, 0x03, 0x75, 0x69, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x03, 0x52, 0x03, 0x75, 0x69, 0x64,
-	0x12, 0x2d, 0x0a, 0x09, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x18, 0x04, 0x20,
-	0x01, 0x28, 0x0e, 0x32, 0x10, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x55, 0x73, 0x65,
-	0x72, 0x54, 0x79, 0x70, 0x65, 0x52, 0x08, 0x75, 0x73, 0x65, 0x72, 0x54, 0x79, 0x70, 0x65, 0x32,
-	0x4c, 0x0a, 0x0c, 0x4c, 0x6f, 0x67, 0x69, 0x6e, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12,
-	0x3c, 0x0a, 0x07, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x12, 0x16, 0x2e, 0x70, 0x62, 0x5f,
-	0x67, 0x65, 0x6e, 0x2e, 0x41, 0x64, 0x64, 0x55, 0x73, 0x65, 0x72, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x41, 0x64, 0x64, 0x55,
-	0x73, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x22, 0x88, 0x01, 0x0a, 0x11, 0x41, 0x64, 0x64, 0x53, 0x74, 0x75,
+	0x64, 0x65, 0x6e, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65,
+	0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69,
+	0x6c, 0x12, 0x18, 0x0a, 0x07, 0x61, 0x75, 0x74, 0x6f, 0x4e, 0x75, 0x6d, 0x18, 0x02, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x07, 0x61, 0x75, 0x74, 0x6f, 0x4e, 0x75, 0x6d, 0x12, 0x1b, 0x0a, 0x09, 0x70,
+	0x61, 0x73, 0x73, 0x5f, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08,
+	0x70, 0x61, 0x73, 0x73, 0x57, 0x6f, 0x72, 0x64, 0x12, 0x26, 0x0a, 0x0f, 0x6d, 0x75, 0x74, 0x69,
+	0x6c, 0x5f, 0x70, 0x61, 0x73, 0x73, 0x5f, 0x77, 0x6f, 0x72, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x0d, 0x6d, 0x75, 0x74, 0x69, 0x6c, 0x50, 0x61, 0x73, 0x73, 0x57, 0x6f, 0x72, 0x64,
+	0x22, 0x3e, 0x0a, 0x12, 0x41, 0x64, 0x64, 0x53, 0x74, 0x75, 0x64, 0x65, 0x6e, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x10,
+	0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67,
+	0x22, 0x28, 0x0a, 0x10, 0x53, 0x65, 0x6e, 0x64, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x05, 0x65, 0x6d, 0x61, 0x69, 0x6c, 0x22, 0x3d, 0x0a, 0x11, 0x53, 0x65,
+	0x6e, 0x64, 0x45, 0x6d, 0x61, 0x69, 0x6c, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x16, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x05, 0x52,
+	0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x33,
 }
 
 var (
@@ -230,24 +293,19 @@ func file_user_proto_rawDescGZIP() []byte {
 	return file_user_proto_rawDescData
 }
 
-var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_user_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_user_proto_goTypes = []interface{}{
-	(*AddUserRequest)(nil),  // 0: pb_gen.AddUserRequest
-	(*AddUserResponse)(nil), // 1: pb_gen.AddUserResponse
-	(Sex)(0),                // 2: pb_gen.Sex
-	(UserType)(0),           // 3: pb_gen.UserType
+	(*AddStudentRequest)(nil),  // 0: pb_gen.AddStudentRequest
+	(*AddStudentResponse)(nil), // 1: pb_gen.AddStudentResponse
+	(*SendEmailRequest)(nil),   // 2: pb_gen.SendEmailRequest
+	(*SendEmailResponse)(nil),  // 3: pb_gen.SendEmailResponse
 }
 var file_user_proto_depIdxs = []int32{
-	2, // 0: pb_gen.AddUserRequest.sex:type_name -> pb_gen.Sex
-	3, // 1: pb_gen.AddUserRequest.user_type:type_name -> pb_gen.UserType
-	3, // 2: pb_gen.AddUserResponse.user_type:type_name -> pb_gen.UserType
-	0, // 3: pb_gen.LoginService.AddUser:input_type -> pb_gen.AddUserRequest
-	1, // 4: pb_gen.LoginService.AddUser:output_type -> pb_gen.AddUserResponse
-	4, // [4:5] is the sub-list for method output_type
-	3, // [3:4] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0, // [0:0] is the sub-list for method output_type
+	0, // [0:0] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_user_proto_init() }
@@ -258,7 +316,7 @@ func file_user_proto_init() {
 	file_user_info_proto_init()
 	if !protoimpl.UnsafeEnabled {
 		file_user_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddUserRequest); i {
+			switch v := v.(*AddStudentRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -270,7 +328,31 @@ func file_user_proto_init() {
 			}
 		}
 		file_user_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AddUserResponse); i {
+			switch v := v.(*AddStudentResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendEmailRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_user_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SendEmailResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -288,9 +370,9 @@ func file_user_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_user_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
-			NumServices:   1,
+			NumServices:   0,
 		},
 		GoTypes:           file_user_proto_goTypes,
 		DependencyIndexes: file_user_proto_depIdxs,
