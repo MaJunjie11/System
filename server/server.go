@@ -39,7 +39,7 @@ func SetRoute(r *gin.Engine) {
 	r.Use(Cors())
 	r.POST("/amisdemo", warpAmisDemo)
 	r.GET("/user_login", warpUserLogin)
-	r.GET("/user_add", warpAddUser)
+	r.POST("/user_add", warpAddUser)
 	r.GET("/create_room", warpCreateRoom)
 	r.GET("/manager_get_reviewing_room", warpManagerGetReeviewingRoom)
 	r.GET("/manager_check_reviewing_room", warpMangerCheckReviewingRoom)
@@ -49,16 +49,28 @@ func SetRoute(r *gin.Engine) {
 	r.GET("/teacher_add_student_to_room", warpTeacherAddStudentToRoom)
 	r.GET("/teacher_get_req_add_room_studentlist", warpTeacherGetReqAddRoomStudentList)
 	r.POST("/send_email", warpSendEmail)
+	r.POST("/student_login", warpStudentLogin)
+}
+
+func warpStudentLogin(c *gin.Context) {
+	req := &pb_gen.StudentLoginRequest{}
+	resp := &pb_gen.StudentLoginResponse{}
+	c.ShouldBindJSON(req)
+	handler := login_method.NewStudentLoginHandler(req, resp)
+	handler.Run()
+	if resp.Status != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
 }
 
 func warpSendEmail(c *gin.Context) {
 	req := &pb_gen.SendEmailRequest{}
 	resp := &pb_gen.SendEmailResponse{}
-
+	c.ShouldBindJSON(req)
 	handler := message_method.NewSendEmailHandler(req, resp)
 	handler.Run()
-
-	c.ShouldBind(req)
 	c.JSON(http.StatusOK, resp)
 }
 
@@ -165,11 +177,14 @@ func warpManagerGetReeviewingRoom(c *gin.Context) {
 func warpAddUser(c *gin.Context) {
 	req := &pb_gen.AddStudentRequest{}
 	resp := &pb_gen.AddStudentResponse{}
-	c.ShouldBind(req)
+	c.ShouldBindJSON(req)
 	handler := user_method.NewAddUserHandler(req, resp)
 	handler.Run()
-
-	c.JSON(http.StatusOK, resp)
+	if resp.GetStatus() != 1 {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
 }
 
 func warpAmisDemo(c *gin.Context) {

@@ -1,0 +1,15 @@
+syntax = "proto3";
+package pb_gen;
+
+enum ErrNo {
+  UnknoweErr = 0;
+  Success = 1;
+  Internal_Err = 99;                //服务器内部错误
+  Email_ForMat_Error = 100;         //邮件格式错误
+  User_Already_Exist = 101;         //已经存在这个用户
+  Cache_No_Verification_code = 102; //缓存中没有这个验证码
+  Verification_Code_Error = 103;    //验证码错误
+  Password_Not_Same = 104;          //两次密码不同
+  User_Not_Exist = 105;             //用户不存在
+  Login_Password_Error = 106;       //密码错误
+}
