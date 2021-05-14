@@ -16,14 +16,17 @@ message UserLoginResponse {
 };
 
 message StudentLoginRequest {
-  string email = 1;
+  string uuid = 1;
   string password = 2;
 };
 
 message StudentLoginResponse {
-  ErrNo status = 1; //
-  string token = 2; //用户token
-  int64 uid = 3;    //用户uid
-  string email = 4; //用户名
-  string msg = 5;   //登录信息
+  ErrNo code = 1;            //
+  string msg = 2;            //登录信息
+  StudentLoginData data = 3; // 登陆携带的一些token数据
 };
+
+message StudentLoginData {
+  string key = 2;   //用户uid
+  string token = 1; //用户token
+}

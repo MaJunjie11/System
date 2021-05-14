@@ -137,7 +137,7 @@ type UserInfo struct {
 	Email    string   `protobuf:"bytes,4,opt,name=email,proto3" json:"email,omitempty"` // 通过邮箱注册
 	Age      int32    `protobuf:"varint,5,opt,name=age,proto3" json:"age,omitempty"`
 	PassWord string   `protobuf:"bytes,6,opt,name=pass_word,json=passWord,proto3" json:"pass_word,omitempty"`
-	UserType UserType `protobuf:"varint,7,opt,name=user_type,json=userType,proto3,enum=pb_gen.UserType" json:"user_type,omitempty"`
+	UserType UserType `protobuf:"varint,7,opt,name=user_type,json=userType,proto3,enum=pb_gen.UserType" json:"user_type,omitempty"` //鉴权信息在这里 0管理员 1老师 2学生
 }
 
 func (x *UserInfo) Reset() {

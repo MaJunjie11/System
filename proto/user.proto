@@ -23,3 +23,31 @@ message SendEmailResponse {
   ErrNo status = 1;
   string msg = 2;
 }
+
+message GetUserInfoRequest { string token = 1; }
+
+message GetUserInfoResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  GetUserInfoData data = 3;
+}
+
+message GetUserInfoData {
+  string avatar = 1;    // 头像地址
+  string name = 2;      // 姓名
+  string signature = 3; // 签名
+  string limit = 4;     // 权限
+  string uuid = 5;      // 学生的学号
+}
+
+message UserChangePasswordRequest {
+  string token = 1;
+  string oldPassword = 2; //老密码
+  string password = 3;
+  string confirmPassword = 4; //重复密码
+}
+
+message UserChangePasswordResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}

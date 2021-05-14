@@ -1,44 +1,27 @@
 package user_dal
 
 import (
-	"System/common"
-	"System/pb_gen"
+	"System/db"
+	"System/user/user_moudle"
 	"fmt"
-
-	jsoniter "github.com/json-iterator/go"
-
-	"github.com/skoo87/log4go"
 )
 
-func AddUserInfoToDB(userInfo *pb_gen.UserInfo) error {
-	var userInfoStr string
-	userInfoStr, _ = jsoniter.MarshalToString(userInfo)
-	common.InitDB()
-	defer common.ClosDB()
-	fmt.Print(userInfoStr)
-	// id userInfoJson uid phone  后续优化索引
-	queryStr := fmt.Sprintf("insert into user values(1,'%s','%d', '%s')", userInfoStr, userInfo.Uid, userInfo.Email)
-	common.DB.Query(queryStr)
-	return nil
+func GetUserBasicInfoFromDb(uid int64) (*user_moudle.UserStudentBaseInfo, error) {
+	var (
+		userBaseInfo *user_moudle.UserStudentBaseInfo = &user_moudle.UserStudentBaseInfo{}
+		err          error
+		count        int
+	)
+	//
+	db.Db.Where("uid = ?", uid).Find(userBaseInfo).Count(&count)
+	if count < 1 {
+		return nil, fmt.Errorf("no baseInfo")
+	}
+	return userBaseInfo, err
+
 }
 
-func CheckIfHasUserFromDB(telephoneNum string) (bool, error) {
-	var (
-		err     error
-		hasUser bool = false
-		phone   string
-	)
-	common.InitDB()
-	defer common.ClosDB()
-
-	queryStr := fmt.Sprintf("select phone from user where phone=%s", telephoneNum)
-
-	if err = common.DB.QueryRow(queryStr).Scan(&phone); err != nil {
-		log4go.Error("queryDB faild:queryStr:%s err:%v", queryStr, err)
-		return false, err
-	}
-	if phone != "" {
-		hasUser = true
-	}
-	return hasUser, nil
+func ChangeUserPasswordToDbByUid(uid int64, password string) error {
+	db.Db.Model(&user_moudle.UserStudentLoginInfo{}).Where("uid = ?", uid).Update("password", password)
+	return nil
 }

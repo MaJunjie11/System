@@ -86,12 +86,12 @@ type RoomInfo struct {
 	unknownFields protoimpl.UnknownFields
 
 	RoomId         int64      `protobuf:"varint,1,opt,name=room_id,json=roomId,proto3" json:"room_id,omitempty"`
-	TeacherId      int64      `protobuf:"varint,2,opt,name=teacher_id,json=teacherId,proto3" json:"teacher_id,omitempty"`                           //教室所属的teacher
-	StudentCnt     int64      `protobuf:"varint,3,opt,name=student_cnt,json=studentCnt,proto3" json:"student_cnt,omitempty"`                        //教室的学生数量
-	RoomReviewerId int64      `protobuf:"varint,4,opt,name=room_reviewer_id,json=roomReviewerId,proto3" json:"room_reviewer_id,omitempty"`          //教室审核人的id 特指管理员
-	RoomName       string     `protobuf:"bytes,5,opt,name=room_name,json=roomName,proto3" json:"room_name,omitempty"`                               //教室的名字
-	RoomStatus     RoomStatus `protobuf:"varint,6,opt,name=room_status,json=roomStatus,proto3,enum=pb_gen.RoomStatus" json:"room_status,omitempty"` //教室的状态
-	RoomCapcity    int64      `protobuf:"varint,7,opt,name=RoomCapcity,proto3" json:"RoomCapcity,omitempty"`
+	TeacherId      int64      `protobuf:"varint,2,opt,name=teacher_id,json=teacherId,proto3" json:"teacher_id,omitempty"`                           // 教室所属的teacher
+	StudentCnt     int64      `protobuf:"varint,3,opt,name=student_cnt,json=studentCnt,proto3" json:"student_cnt,omitempty"`                        // 教室的学生数量
+	RoomReviewerId int64      `protobuf:"varint,4,opt,name=room_reviewer_id,json=roomReviewerId,proto3" json:"room_reviewer_id,omitempty"`          // 教室审核人的id 特指管理员
+	RoomName       string     `protobuf:"bytes,5,opt,name=room_name,json=roomName,proto3" json:"room_name,omitempty"`                               // 教室的名字
+	RoomStatus     RoomStatus `protobuf:"varint,6,opt,name=room_status,json=roomStatus,proto3,enum=pb_gen.RoomStatus" json:"room_status,omitempty"` // 教室的状态
+	RoomCapcity    int64      `protobuf:"varint,7,opt,name=RoomCapcity,proto3" json:"RoomCapcity,omitempty"`                                        // 教室容量
 }
 
 func (x *RoomInfo) Reset() {

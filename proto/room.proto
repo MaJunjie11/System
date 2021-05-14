@@ -2,6 +2,7 @@ syntax = "proto3";
 import "room_info.proto";
 import "user.proto";
 import "user_info.proto";
+import "error.proto";
 package pb_gen;
 
 enum RoomCapcity {
@@ -105,6 +106,21 @@ message TeacherGetReviewingRoomResponse {
   repeated RoomInfo room_info_list = 1;
   int32 err_no = 2;
   string err_tips = 3;
+}
+
+// 学生拉取可以加入的教室
+
+message StudentGetAlreadyRoomRequest { int64 uid = 1; }
+
+message StudentGetAlreadyRoomResponse {
+  ErrNo status = 1;
+  string msg = 2;
+  StudentGetAlreadyRoomResponseData data = 3;
+}
+
+message StudentGetAlreadyRoomResponseData {
+  int32 count = 1;
+  repeated RoomInfo rows = 2;
 }
 
 // 学生拉去审核加入中教室列表

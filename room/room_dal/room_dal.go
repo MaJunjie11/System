@@ -9,6 +9,7 @@ import (
 	"github.com/skoo87/log4go"
 )
 
+// 获取创建中的教室
 func GetCreatingRoomFromDB() ([]*pb_gen.RoomInfo, error) {
 	var (
 		err          error
@@ -139,4 +140,28 @@ func ModifyRoomInfo(roomInfo *pb_gen.RoomInfo) error {
 	queryStr := fmt.Sprintf("update room set roomInfo = %s", roomInfoStr)
 	common.DB.Query(queryStr)
 	return nil
+}
+
+// 学生拉取开课前的room    class的几种状态 创建中，开课前，使用中，完课关闭中
+func StudentGetUsingRoomFromDB(uid int64) ([]*pb_gen.RoomInfo, error) {
+	var (
+		err          error
+		roomInfoList []*pb_gen.RoomInfo = make([]*pb_gen.RoomInfo, 0)
+		roomInfo     *pb_gen.RoomInfo   = &pb_gen.RoomInfo{}
+	)
+	common.InitDB()
+	defer common.ClosDB()
+	// 开课前
+	queryStr := fmt.Sprintf("select roomInfo from room where roomStatus = %d", int32(pb_gen.RoomStatus_Reviewing))
+	rows, err := common.DB.Query(queryStr)
+	if err != nil {
+		return nil, err
+	}
+	for rows.Next() {
+		var roomInfoStr string
+		rows.Scan(&roomInfoStr)
+		jsoniter.UnmarshalFromString(roomInfoStr, roomInfo)
+		roomInfoList = append(roomInfoList, roomInfo)
+	}
+	return roomInfoList, nil
 }
