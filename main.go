@@ -1,6 +1,7 @@
 package main
 
 import (
+	"System/course/course_model"
 	"System/server"
 	"System/user/user_moudle"
 
@@ -12,9 +13,9 @@ import (
 
 func main() {
 	initLog()
+	//initDbTable()
 	r := gin.Default()
 	server.SetRoute(r)
-	user_moudle.AddTableInDb()
 	r.Run(":9090") // 监听并在 0.0.0.0:9090 上启动服务
 }
 
@@ -23,4 +24,9 @@ func initLog() {
 		panic(err)
 	}
 	log.Info("启动成功")
+}
+
+func initDbTable() {
+	user_moudle.AddTableInDb()
+	course_model.AddTableInDb()
 }

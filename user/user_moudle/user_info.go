@@ -33,13 +33,6 @@ type UserStudentDetailInfo struct {
 	SchoolingRecord string // 学历
 }
 
-// 学生选课表
-type UserStudentClassInfo struct {
-	Uid     int64
-	ClassId int64
-	//这两个需要做联合主键
-}
-
 func (UserStudentLoginInfo) TableName() string {
 	return "user_student_login_info"
 }

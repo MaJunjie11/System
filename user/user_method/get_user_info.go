@@ -58,7 +58,7 @@ func (g *GetUserInfoHandler) packRespData(userBaseInfo *user_moudle.UserStudentB
 	}
 	//TODO: 后续需要优化
 	if userBaseInfo.Limit == 2 {
-		data.Limit = "student"
+		data.Limit = "/selectRoom,/myClass"
 	}
 
 	g.Resp.Data = data

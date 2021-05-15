@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"os"
 
+	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/jinzhu/gorm"
 )
 
@@ -74,7 +76,4 @@ func init() {
 
 	Db.DB().SetMaxOpenConns(100) // 最大连接数
 	Db.DB().SetMaxIdleConns(50)  // 最大空闲数
-
-	// 这里设置db的表暂时不使用
-	//Db.AutoMigrate(&models.FrontUser{}, &models.AdminUser{})
 }

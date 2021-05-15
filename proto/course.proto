@@ -1,0 +1,27 @@
+syntax = "proto3";
+import "error.proto";
+
+package pb_gen;
+
+message StudentGetAddCourseListRequest {
+  string token = 1; //用户的token
+}
+
+message StudentGetAddCourseListResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetAddCourseListData data = 3;
+}
+
+message StudentGetAddCourseListData {
+  int count = 1;
+  repeated AddCourseData rows = 2;
+}
+
+message AddCourseData {
+  int courseId = 1;
+  string teacherName = 2;
+  String className = 3;
+  int classStudentNum = 4;
+  int classCapacity = 5;
+}
