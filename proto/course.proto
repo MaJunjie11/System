@@ -14,14 +14,372 @@ message StudentGetAddCourseListResponse {
 }
 
 message StudentGetAddCourseListData {
-  int count = 1;
+  int32 count = 1;
   repeated AddCourseData rows = 2;
 }
 
 message AddCourseData {
-  int courseId = 1;
+  string courseId = 1;
+  int64 teacherUid = 2;
+  string teacherName = 3;
+  string className = 4;
+  int32 classStudentNum = 5;
+  int32 classCapacity = 6;
+}
+
+message StudentGetEndCourseRequest { string token = 1; }
+
+message StudentGetEndCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetEndCourseResponseData data = 3;
+}
+
+message StudentGetEndCourseResponseData {
+  int32 total = 1;
+  repeated StudentCourseData items = 2;
+}
+
+message StudentGetStartCourseRequest { string token = 1; }
+
+message StudentGetStartCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetStartCourseResponseData data = 3;
+}
+
+message StudentGetStartCourseResponseData {
+  int32 total = 1;
+  repeated StudentCourseData items = 2;
+}
+
+message StudentGetUntaughtCourseRequest { string token = 1; }
+
+message StudentGetUntaughtCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetUntaughtCourseResponseData data = 3;
+}
+
+message StudentGetUntaughtCourseResponseData {
+  int32 total = 1;
+  repeated StudentCourseData items = 2;
+}
+
+message StudentCourseData {
+  string courseId = 1;
   string teacherName = 2;
-  String className = 3;
-  int classStudentNum = 4;
-  int classCapacity = 5;
+  string className = 3;
+  int32 classStudentNum = 4;
+  int32 classCapacity = 5;
+  string courseIntroduce = 6;
+  string courseMajor = 7;
+  string courseDate = 8;
+  string courseAddr = 9;
+}
+
+message StudentAddCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message StudentAddCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message StudentGetNonJoinCourseRequset { string token = 1; }
+message StudentGetNonJoinCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetNonJoinCourseResponseData data = 3;
+}
+
+message StudentGetNonJoinCourseResponseData {
+  int32 total = 1;
+  repeated StudentNonJoinCourseData items = 2;
+}
+
+message StudentNonJoinCourseData {
+  string courseId = 1;
+  string teacherName = 2;
+  string className = 3;
+  int32 classStudentNum = 4;
+  int32 classCapacity = 5;
+  string classStatus = 6; //课程状态
+}
+
+message StudentAddLikeCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message StudentAddLikeCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message StudentGetLikeCourseRequest { string token = 1; }
+
+message StudentGetLikeCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  StudentGetLikeCourseResponseData data = 3;
+}
+
+message StudentGetLikeCourseResponseData {
+  int32 total = 1;
+  repeated StudentGetLikeCourseData items = 2;
+}
+
+message StudentGetLikeCourseData {
+  string courseId = 1;
+  string teacherName = 2;
+  string className = 3;
+  int32 classStudentNum = 4;
+  int32 classCapacity = 5;
+  string classStatus = 6; //课程状态
+}
+
+message TeacherAddCourseRequest {
+  string token = 1;
+  string className = 2;
+  string courseDate = 3;
+  string classCapacity = 4;
+  string courseMajor = 5;
+  string courseIntroduce = 6;
+  string managerUuid = 7;
+}
+
+message TeacherAddCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+// 老师获取等待审核的课程列表
+message TeacherGetAuditCourseRequest { string token = 1; }
+
+message TeacherGetAuditCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  TeacherGetAuditCourseResponseData data = 3;
+}
+
+message TeacherGetAuditCourseResponseData {
+  int32 total = 1;
+  repeated AuditCourseData items = 2;
+}
+
+message AuditCourseData {
+  string className = 1;
+  string courseMajor = 2;
+  string courseDate = 3;
+  int32 classCapacity = 4;
+  string courseIntroduce = 5;
+  string name = 6;
+  int64 teacherUid = 7;
+  string Uuid = 8;
+  string courseId = 9;
+}
+
+message TeacherGetStartCourseRequest { string token = 1; }
+
+message TeacherGetStartCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  TeacherGetStartCourseResponseData data = 3;
+}
+
+message TeacherGetStartCourseResponseData {
+  int32 total = 1;
+  repeated TeacherCourseDetailData items = 2;
+}
+
+message TeacherGetEndCourseRequest { string token = 1; }
+
+message TeacherGetEndCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  TeacherGetEndCourseResponseData data = 3;
+}
+
+message TeacherGetEndCourseResponseData {
+  int32 total = 1;
+  repeated TeacherCourseDetailData items = 2;
+}
+
+message TeacherGetUntaughtCourseRequest { string token = 1; }
+
+message TeacherGetUntaughtCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  TeacherGetUntaughtCourseResponseData data = 3;
+}
+
+message TeacherGetUntaughtCourseResponseData {
+  int32 total = 1;
+  repeated TeacherCourseDetailData items = 2;
+}
+
+message TeacherCourseDetailData {
+  string courseId = 1;
+  string className = 2;
+  string classStudentNum = 3;
+  int32 classCapacity = 4;
+  string courseAddr = 5; //上课地址
+  string courseIntroduce = 6;
+  string courseMajor = 7;
+  string courseDate = 8;
+}
+
+message GetCourseStudentRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message GetCourseStudentResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  GetCourseStudentResponseData data = 3;
+}
+
+message GetCourseStudentResponseData {
+  int32 total = 1;
+  repeated CourseStudentData items = 2;
+}
+
+message CourseStudentData {
+  string name = 1;
+  string uuid = 2;
+  int64 uid = 3;
+}
+
+message GetAuditCourseStudentRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message GetAuditCourseStudentResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  GetAuditCourseStudentResponseData data = 3;
+}
+
+message GetAuditCourseStudentResponseData {
+  int32 total = 1;
+  repeated AuditCourseStudentData items = 2;
+}
+
+message AuditCourseStudentData {
+  string name = 1;
+  string uuid = 2;
+  int64 uid = 3;
+}
+
+message TeacherAuditStudentRequest {
+  string token = 1;
+  int64 uid = 2;       //学生id
+  string courseId = 3; //课程ID
+}
+
+message TeacherAuditStudentResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message TeacherAddStudentRequest {
+  string token = 1;
+  string courseId = 2;
+  string uuid = 3; //学生学号
+}
+
+message TeacherAddStudentResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message TeacherStartCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message TeacherStartCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message TeacherEndCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message TeacherEndCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message ManagerGetAuditCourseRequest { string token = 1; }
+
+message ManagerGetAuditCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  ManagerGetAuditCourseResponseData data = 3;
+}
+
+message ManagerGetAuditCourseResponseData {
+  int32 total = 1;
+  repeated AuditCourseData items = 2;
+}
+
+message ManagerAuditDoneCourseRequest {
+  string token = 1;
+  string courseId = 2;
+  string courseAddr = 3;
+}
+
+message ManagerAuditDoneCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message ManagerAuditRefuseCourseRequest {
+  string token = 1;
+  string courseId = 2;
+  string refuseReason = 3; //拒绝的理由
+}
+
+message ManagerAuditRefuseCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message TeacherFeetStudentRequest {
+  string token = 1;
+  string courseId = 2;
+  int64 uid = 3; //学生ID
+}
+
+message TeacherFeetStudentResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message StudentFeetCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message StudentFeetCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message ManagerResetPasswordRequest {
+  string token = 1;
+  string uuid = 2;
+}
+
+message ManagerResetPasswordResponse {
+  ErrNo code = 1;
+  string msg = 2;
 }

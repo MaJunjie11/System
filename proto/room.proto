@@ -110,19 +110,6 @@ message TeacherGetReviewingRoomResponse {
 
 // 学生拉取可以加入的教室
 
-message StudentGetAlreadyRoomRequest { int64 uid = 1; }
-
-message StudentGetAlreadyRoomResponse {
-  ErrNo status = 1;
-  string msg = 2;
-  StudentGetAlreadyRoomResponseData data = 3;
-}
-
-message StudentGetAlreadyRoomResponseData {
-  int32 count = 1;
-  repeated RoomInfo rows = 2;
-}
-
 // 学生拉去审核加入中教室列表
 
 // 老师归还教室

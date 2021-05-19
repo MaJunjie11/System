@@ -1,6 +1,7 @@
 package server
 
 import (
+	"System/course/course_method"
 	"System/login/login_method"
 	"System/message/message_method"
 	"System/pb_gen"
@@ -56,20 +57,496 @@ func SetRoute(r *gin.Engine) {
 	// 1.用户登陆
 	r.POST("/student_login", warpStudentLogin)
 	// 2.学生拉教室列表
-	r.GET("/student_get_already_room", warpStudentGetAlreadyRoom)
+	r.GET("/student_get_untaught_course", warpStudentGetUntaughtCourse)
 	// 3.学生删除课程
 	r.POST("/student_delete_room", warpStudentDeleteRoom)
 	// 4.获取用户信息
 	r.GET("/get_user_info", warpGetUserInfo)
 	// 5.用户修改密码
 	r.PUT("/user_change_password", warpUserChangePassword)
+	// 6.获取用户主页展示的可以添加的课程
+	r.GET("/student_get_add_course_list", warpStudentGetAddCourseList)
+	// 7. 学生加入课程
+	r.POST("/student_add_course", warpStudentAddCourse)
+	// 8.学生不可以加入的课程列表
+	r.GET("/student_get_non_join_course_list", warpStudentGetNonJoinCourse)
+	// 9.学生添加心愿单
+	r.POST("/student_add_like_course", warpStudentAddLikeCourse)
+	// 10.学生心愿课程展示
+	r.GET("/student_get_like_course", warpStudentGetLikeCourse)
+	// 11.学生获取已经开课课程
+	r.GET("/student_get_start_course", warpStudentGetStartCourse)
+	// 12.学生获取结束的课程
+	r.GET("/student_get_end_course", warpStudentGetEndCourse)
+	// 13.学生退出一个未开课课程
+	r.POST("/student_feet_course", warpStudentFeetCourse)
+
+	/*
+		以下是老师端接口
+	*/
+
+	// 1.老师添加课程
+	r.POST("/teacher_add_course", warpTeacherAddCourse)
+	// 2 老师获取审核中课程
+	r.GET("/teacher_get_audit_course", warpTeacherGetAuditCourse)
+	// 3.获取审核中课程详细信息
+	r.GET("/audit_course_info", warpTeacherGetAuditCourseDetailInfo)
+	// 4.老师获取自己的所有课程
+	r.GET("/teacher_get_untaught_course", warpTeacherGetUntaughtCourse)
+	// 5.老师获取某个课程的所有学生信息
+	r.POST("/get_course_student", warpGetCourseStudent)
+	// 6. 获取当前课程等待审核的学生列表
+	r.POST("/get_audit_course_student", warpGetAuditCourseStudent)
+	// 7.老师同意学生申请加入课程
+	r.POST("/teacher_audit_student", warpTeacherAuditStudent)
+	// 8.老师开课
+	r.POST("/teacher_start_course", warpTeacherStartCourse)
+	// 9.老师结课
+	r.POST("/teacher_end_course", warpTeacherEndCourse)
+	// 10.老师添加学生
+	r.POST("/teacher_add_student", warpTeacherAddStudent)
+	// 11.老师获取已经开课课程
+	r.GET("/teacher_get_start_course", warpTeacherGetStartCourse)
+	// 12.老师获取已经结课课
+	r.GET("/teacher_get_end_course", warpTeacherGetEndCourse)
+	// 13.老师踢出学生 或拒绝学生加入
+	r.POST("teacher_feet_student", warpTeacherFeetStudent)
+
+	/*
+		管理员功能
+	*/
+	// 1.管理员拉取等待审核课程列表
+	r.GET("/manager_get_audit_course", warpManagerGetAuditCourse)
+	// 2.
+	r.POST("/manager_audit_down_course", warpManagerAuditDownCourse)
+	// 3.
+	r.POST("/manager_audit_refuse_course", warpManagerAuditRefuseCourse)
+	// 4.管理员重置学生老师的密码
+	r.POST("manager_reset_password", warpManagerResetPassword)
+
+}
+
+func warpManagerResetPassword(c *gin.Context) {
+	req := &pb_gen.ManagerResetPasswordRequest{}
+	resp := &pb_gen.ManagerResetPasswordResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerResetPasswordHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpManagerAuditRefuseCourse(c *gin.Context) {
+	req := &pb_gen.ManagerAuditRefuseCourseRequest{}
+	resp := &pb_gen.ManagerAuditRefuseCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerAuditRefuseCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentFeetCourse(c *gin.Context) {
+	req := &pb_gen.StudentFeetCourseRequest{}
+	resp := &pb_gen.StudentFeetCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentFeetCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherFeetStudent(c *gin.Context) {
+	req := &pb_gen.TeacherFeetStudentRequest{}
+	resp := &pb_gen.TeacherFeetStudentResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherFeetStudentHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpManagerAuditDownCourse(c *gin.Context) {
+	req := &pb_gen.ManagerAuditDoneCourseRequest{}
+	resp := &pb_gen.ManagerAuditDoneCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerAuditDoneCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpManagerGetAuditCourse(c *gin.Context) {
+	req := &pb_gen.ManagerGetAuditCourseRequest{}
+	resp := &pb_gen.ManagerGetAuditCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerGetAuditCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpTeacherAddStudent(c *gin.Context) {
+	req := &pb_gen.TeacherAddStudentRequest{}
+	resp := &pb_gen.TeacherAddStudentResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherAddStudentHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherEndCourse(c *gin.Context) {
+	req := &pb_gen.TeacherEndCourseRequest{}
+	resp := &pb_gen.TeacherEndCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherEndCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherStartCourse(c *gin.Context) {
+	req := &pb_gen.TeacherStartCourseRequest{}
+	resp := &pb_gen.TeacherStartCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherStartCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherAuditStudent(c *gin.Context) {
+	req := &pb_gen.TeacherAuditStudentRequest{}
+	resp := &pb_gen.TeacherAuditStudentResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherAuditStudentHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpGetAuditCourseStudent(c *gin.Context) {
+	req := &pb_gen.GetAuditCourseStudentRequest{}
+	resp := &pb_gen.GetAuditCourseStudentResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewGetAuditCourseStudentHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpGetCourseStudent(c *gin.Context) {
+	req := &pb_gen.GetCourseStudentRequest{}
+	resp := &pb_gen.GetCourseStudentResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewGetCourseStudentHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherGetUntaughtCourse(c *gin.Context) {
+	req := &pb_gen.TeacherGetUntaughtCourseRequest{}
+	resp := &pb_gen.TeacherGetUntaughtCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherGetUntaughtCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherGetStartCourse(c *gin.Context) {
+	req := &pb_gen.TeacherGetStartCourseRequest{}
+	resp := &pb_gen.TeacherGetStartCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherGetStartCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherGetEndCourse(c *gin.Context) {
+	req := &pb_gen.TeacherGetEndCourseRequest{}
+	resp := &pb_gen.TeacherGetEndCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherGetEndCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherGetAuditCourseDetailInfo(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"className":   "haha",
+		"courseMajro": "物理",
+	})
+}
+
+func warpTeacherGetAuditCourse(c *gin.Context) {
+	req := &pb_gen.TeacherGetAuditCourseRequest{}
+	resp := &pb_gen.TeacherGetAuditCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherGetAuditCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherAddCourse(c *gin.Context) {
+	req := &pb_gen.TeacherAddCourseRequest{}
+	resp := &pb_gen.TeacherAddCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherAddCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentGetLikeCourse(c *gin.Context) {
+	req := &pb_gen.StudentGetLikeCourseRequest{}
+	resp := &pb_gen.StudentGetLikeCourseResponse{}
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentGetLikeCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentAddLikeCourse(c *gin.Context) {
+	req := &pb_gen.StudentAddLikeCourseRequest{}
+	resp := &pb_gen.StudentAddLikeCourseResponse{}
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+
+	handler := course_method.NewStudentAddLikeCouserHandler(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpStudentGetNonJoinCourse(c *gin.Context) {
+	req := &pb_gen.StudentGetNonJoinCourseRequset{}
+	resp := &pb_gen.StudentGetNonJoinCourseResponse{}
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentGetNonJoinCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentAddCourse(c *gin.Context) {
+	req := &pb_gen.StudentAddCourseRequest{}
+	resp := &pb_gen.StudentAddCourseResponse{}
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	c.ShouldBindJSON(req)
+
+	handler := course_method.NewStudentAddCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+func warpStudentGetEndCourse(c *gin.Context) {
+	req := &pb_gen.StudentGetEndCourseRequest{}
+	resp := &pb_gen.StudentGetEndCourseResponse{}
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentGetEndCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentGetStartCourse(c *gin.Context) {
+	req := &pb_gen.StudentGetStartCourseRequest{}
+	resp := &pb_gen.StudentGetStartCourseResponse{}
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentGetStartCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpStudentGetUntaughtCourse(c *gin.Context) {
+	req := &pb_gen.StudentGetUntaughtCourseRequest{}
+	resp := &pb_gen.StudentGetUntaughtCourseResponse{}
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewStudentGetAlreadyRoomHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpStudentGetAddCourseList(c *gin.Context) {
+	req := &pb_gen.StudentGetAddCourseListRequest{}
+	resp := &pb_gen.StudentGetAddCourseListResponse{}
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewGetStudentAddCourseListHandler(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		fmt.Println("resp.Code:", resp.Code)
+		c.JSON(404, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
 }
 
 func warpUserChangePassword(c *gin.Context) {
 	req := &pb_gen.UserChangePasswordRequest{}
 	resp := &pb_gen.UserChangePasswordResponse{}
 	c.ShouldBindJSON(req)
-	fmt.Println("passward:", req.OldPassword)
 	token := c.Request.Header.Get("token")
 	req.Token = token
 	handler := user_method.NewUserChangePasswordHandler(req, resp)
@@ -108,53 +585,6 @@ func warpStudentDeleteRoom(c *gin.Context) {
 
 	c.ShouldBindJSON(req)
 	c.JSON(http.StatusOK, "haha")
-}
-
-func warpStudentGetAlreadyRoom(c *gin.Context) {
-	req := &pb_gen.StudentGetAlreadyRoomRequest{}
-	resp := &pb_gen.StudentGetAlreadyRoomResponse{}
-	c.ShouldBindJSON(req)
-	handler := room_method.NewStudentGetAlreadyRoomHandler(req, resp)
-	handler.Run()
-
-	var data pb_gen.StudentGetAlreadyRoomResponseData
-	data.Count = 3
-
-	data1 := &pb_gen.RoomInfo{
-		RoomId:      213890,
-		TeacherId:   12390,
-		StudentCnt:  30,
-		RoomCapcity: 130,
-		RoomName:    "MJJ",
-	}
-	data2 := &pb_gen.RoomInfo{
-		RoomId:      213890,
-		TeacherId:   12390,
-		StudentCnt:  30,
-		RoomCapcity: 130,
-		RoomName:    "PJJ",
-	}
-	data3 := &pb_gen.RoomInfo{
-		RoomId:      213890,
-		TeacherId:   12390,
-		StudentCnt:  30,
-		RoomCapcity: 130,
-		RoomName:    "PJJ",
-	}
-
-	var rows []*pb_gen.RoomInfo = make([]*pb_gen.RoomInfo, 0)
-	rows = append(rows, data1)
-	rows = append(rows, data2)
-	rows = append(rows, data3)
-	data.Rows = rows
-	resp.Data = &data
-	resp.Msg = "ok"
-	resp.Status = pb_gen.ErrNo_Success
-	if resp.Status != pb_gen.ErrNo_Success {
-		c.JSON(500, resp)
-	} else {
-		c.JSON(http.StatusOK, resp)
-	}
 }
 
 func warpStudentLogin(c *gin.Context) {

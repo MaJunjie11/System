@@ -5,6 +5,7 @@ import (
 	"System/user/user_dal"
 	"System/user/user_moudle"
 	"System/util"
+	"fmt"
 )
 
 type GetUserInfoHandler struct {
@@ -58,8 +59,12 @@ func (g *GetUserInfoHandler) packRespData(userBaseInfo *user_moudle.UserStudentB
 	}
 	//TODO: 后续需要优化
 	if userBaseInfo.Limit == 2 {
-		data.Limit = "/selectRoom,/myClass"
+		data.Limit = "/selectRoom,/myClass/startClass,/myClass/untaughtClass,/myClass/endClass,/nonjoinClass,/likeClass"
+	} else if userBaseInfo.Limit == 1 {
+		data.Limit = "/addRoom,/auditRoom,/teacherClass/startClass,/teacherClass/untaughtClass,/teacherClass/endClass"
+	} else if userBaseInfo.Limit == 3 {
+		data.Limit = "/managerAuditCourse,/resetPassword"
 	}
-
+	fmt.Println("Limit:", data.Limit)
 	g.Resp.Data = data
 }

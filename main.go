@@ -13,7 +13,7 @@ import (
 
 func main() {
 	initLog()
-	//initDbTable()
+	initDbTable()
 	r := gin.Default()
 	server.SetRoute(r)
 	r.Run(":9090") // 监听并在 0.0.0.0:9090 上启动服务
