@@ -46,7 +46,22 @@ func (UserStudentDetailInfo) TableName() string {
 }
 
 func AddTableInDb() {
-	db.Db.AutoMigrate(&UserStudentBaseInfo{})
-	db.Db.AutoMigrate(&UserStudentLoginInfo{})
-	db.Db.AutoMigrate(&UserStudentDetailInfo{})
+
+	if db.Db.HasTable(&UserStudentBaseInfo{}) {
+		db.Db.AutoMigrate(&UserStudentBaseInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&UserStudentBaseInfo{})
+	}
+
+	if db.Db.HasTable(&UserStudentLoginInfo{}) {
+		db.Db.AutoMigrate(&UserStudentLoginInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&UserStudentLoginInfo{})
+	}
+
+	if db.Db.HasTable(&UserStudentDetailInfo{}) {
+		db.Db.AutoMigrate(&UserStudentDetailInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&UserStudentDetailInfo{})
+	}
 }

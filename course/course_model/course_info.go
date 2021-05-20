@@ -86,10 +86,41 @@ func (StudentLikeCourseInfo) TableName() string {
 }
 
 func AddTableInDb() {
-	db.Db.AutoMigrate(&CourseBaseInfo{})
-	db.Db.AutoMigrate(&CourseDetailInfo{})
-	db.Db.AutoMigrate(&StudentSelectCourseInfo{})
-	db.Db.AutoMigrate(&StudentLikeCourseInfo{})
-	db.Db.AutoMigrate(&CourseAuditInfo{})
-	db.Db.AutoMigrate(&CourseRefuseInfo{})
+
+	if db.Db.HasTable(&CourseBaseInfo{}) {
+		db.Db.AutoMigrate(&CourseBaseInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseBaseInfo{})
+	}
+
+	if db.Db.HasTable(&CourseDetailInfo{}) {
+		db.Db.AutoMigrate(&CourseDetailInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseDetailInfo{})
+	}
+
+	if db.Db.HasTable(&StudentSelectCourseInfo{}) {
+		db.Db.AutoMigrate(&StudentSelectCourseInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&StudentSelectCourseInfo{})
+	}
+
+	if db.Db.HasTable(&StudentLikeCourseInfo{}) {
+		db.Db.AutoMigrate(&StudentLikeCourseInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&StudentLikeCourseInfo{})
+	}
+
+	if db.Db.HasTable(&CourseAuditInfo{}) {
+		db.Db.AutoMigrate(&CourseAuditInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseAuditInfo{})
+	}
+
+	if db.Db.HasTable(&CourseRefuseInfo{}) {
+		db.Db.AutoMigrate(&CourseRefuseInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseRefuseInfo{})
+	}
+
 }

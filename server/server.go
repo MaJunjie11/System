@@ -111,6 +111,10 @@ func SetRoute(r *gin.Engine) {
 	r.GET("/teacher_get_end_course", warpTeacherGetEndCourse)
 	// 13.老师踢出学生 或拒绝学生加入
 	r.POST("teacher_feet_student", warpTeacherFeetStudent)
+	// 14.老师获取管理员审核不同过的课程
+	r.GET("/teacher_get_refuse_course", warpTeacherGetRefuseCourse)
+	// 15.老师删除没通过的课程
+	r.POST("/teacher_delete_refuse_course", warpTeacherDeleteRefuseCourse)
 
 	/*
 		管理员功能
@@ -383,6 +387,40 @@ func warpTeacherGetAuditCourseDetailInfo(c *gin.Context) {
 		"className":   "haha",
 		"courseMajro": "物理",
 	})
+}
+
+func warpTeacherDeleteRefuseCourse(c *gin.Context) {
+	req := &pb_gen.TeacherDeleteRefuseCourseRequest{}
+	resp := &pb_gen.TeacherDeleteRefuseCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherDeleteRefuseCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpTeacherGetRefuseCourse(c *gin.Context) {
+	req := &pb_gen.TeacherGetRefuseCourseRequest{}
+	resp := &pb_gen.TeacherGetRefuseCourseResponse{}
+	// 接受请求
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewTeacherGetRefuseCourseHandler(req, resp)
+	handler.Run()
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
 }
 
 func warpTeacherGetAuditCourse(c *gin.Context) {

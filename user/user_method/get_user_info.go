@@ -61,7 +61,7 @@ func (g *GetUserInfoHandler) packRespData(userBaseInfo *user_moudle.UserStudentB
 	if userBaseInfo.Limit == 2 {
 		data.Limit = "/selectRoom,/myClass/startClass,/myClass/untaughtClass,/myClass/endClass,/nonjoinClass,/likeClass"
 	} else if userBaseInfo.Limit == 1 {
-		data.Limit = "/addRoom,/auditRoom,/teacherClass/startClass,/teacherClass/untaughtClass,/teacherClass/endClass"
+		data.Limit = "/addRoom,/auditRoom,/teacherClass/startClass,/teacherClass/untaughtClass,/teacherClass/endClass,/refuseCourse"
 	} else if userBaseInfo.Limit == 3 {
 		data.Limit = "/managerAuditCourse,/resetPassword"
 	}

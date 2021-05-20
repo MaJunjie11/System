@@ -286,6 +286,11 @@ func TeacherStartCourse(courseId string) error {
 	return nil
 }
 
+func TeacherDeleteRefuseCourse(courseId string) error {
+	db.Db.Where("course_id=?", courseId).Delete(&course_model.CourseRefuseInfo{})
+	return nil
+}
+
 func TeacherEndCourse(courseId string) error {
 	db.Db.Model(&course_model.CourseBaseInfo{}).Where("course_id=?", courseId).Update("course_status", 2)
 	db.Db.Model(&course_model.CourseDetailInfo{}).Where("course_id=?", courseId).Update("course_status", 2)
@@ -347,6 +352,37 @@ func AddCourseAuditInfo(data *course_model.CourseAuditInfo) error {
 	)
 	db.Db.Create(data)
 	return err
+}
+
+func TeacherGetRefuseInfoFromDb(uid int64) *pb_gen.TeacherGetRefuseCourseResponseData {
+	var (
+		data   *pb_gen.TeacherGetRefuseCourseResponseData = &pb_gen.TeacherGetRefuseCourseResponseData{}
+		result []course_model.CourseRefuseInfo            = make([]course_model.CourseRefuseInfo, 0)
+		count  int
+	)
+	db.Db.Where("teacher_uid = ?", uid).Find(&result).Count(&count)
+	if count < 1 {
+		fmt.Println("no course to show")
+		return nil
+	}
+	// 组织data
+	data.Total = int32(len(result))
+	if data.Total == 0 {
+		return nil
+	}
+	for _, item := range result {
+		data1 := &pb_gen.RefuseCourseData{
+			ClassName:       item.ClassName,
+			CourseMajor:     item.CourseMajor,
+			CourseDate:      item.CourseDate,
+			ClassCapacity:   int32(item.ClassCapacity),
+			CourseIntroduce: item.CourseIntroduce,
+			CourseId:        item.CourseId,
+			RefuseReason:    item.RefuseReason,
+		}
+		data.Items = append(data.Items, data1)
+	}
+	return data
 }
 
 func TeacherGetAuditInfoFromDb(uid int64) *pb_gen.TeacherGetAuditCourseResponseData {

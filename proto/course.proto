@@ -156,6 +156,42 @@ message TeacherAddCourseResponse {
   string msg = 2;
 }
 
+message TeacherDeleteRefuseCourseRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message TeacherDeleteRefuseCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message TeacherGetRefuseCourseRequest { string token = 1; }
+
+message TeacherGetRefuseCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  TeacherGetRefuseCourseResponseData data = 3;
+}
+
+message TeacherGetRefuseCourseResponseData {
+  int32 total = 1;
+  repeated RefuseCourseData items = 2;
+}
+
+message RefuseCourseData {
+  string className = 1;
+  string courseMajor = 2;
+  string courseDate = 3;
+  int32 classCapacity = 4;
+  string courseIntroduce = 5;
+  string name = 6;
+  int64 teacherUid = 7;
+  string Uuid = 8;
+  string courseId = 9;
+  string refuseReason = 10;
+}
+
 // 老师获取等待审核的课程列表
 message TeacherGetAuditCourseRequest { string token = 1; }
 
