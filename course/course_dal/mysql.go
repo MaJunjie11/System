@@ -4,8 +4,10 @@ import (
 	"System/course/course_model"
 	"System/db"
 	"System/pb_gen"
+	"System/room/room_model"
 	"System/user/user_moudle"
 	"fmt"
+	"strconv"
 
 	"github.com/jinzhu/gorm"
 )
@@ -332,6 +334,16 @@ func StudentAddCourse(uid int64, course_id string) error {
 	data.Status = 0 // 等待审核状态 status 1 通过审核的
 	db.Db.Create(&data)
 	return err
+
+}
+
+func StudentAddCourseFromLikeToDb(uid int64, course_id string) error {
+	//
+	db.Db.Model(&course_model.StudentSelectCourseInfo{}).Where("uid=? and course_id=?", uid, course_id).Update("status", 1)
+	if err := db.Db.Model(&course_model.CourseBaseInfo{}).Where("course_id=?", course_id).Update("class_student_num", gorm.Expr("class_student_num+?", 1)).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 func StudentAddLikeCourse(uid int64, course_id string) error {
@@ -449,13 +461,28 @@ func ManagerAddRefuseCourseToDb(uid int64, courseId string, refuseReason string)
 }
 
 // 根据managerID course_id 将审核列表数据加入正式的表中
-func ManagerAuditDownCourseToDb(uid int64, courseId string, courseAddr string) error {
+func ManagerAuditDownCourseToDb(uid int64, courseId string, roomIdStr string) error {
 	var (
 		result       *course_model.CourseAuditInfo    = &course_model.CourseAuditInfo{}
 		userBaseInfo *user_moudle.UserStudentBaseInfo = &user_moudle.UserStudentBaseInfo{}
 		count1       int
 		count2       int
+		count3       int
+		item         room_model.RoomBaseInfo
+		roomId       int64
+		courseAddr   string
 	)
+
+	fmt.Println("roomId:", roomIdStr)
+
+	roomId, _ = strconv.ParseInt(roomIdStr, 10, 64)
+
+	db.Db.Table("room_base_info").Where("id=?", roomId).Scan(&item).Count(&count3)
+
+	courseAddr = item.RoomAddr
+
+	fmt.Println("roomAddr:", courseAddr)
+	db.Db.Model(&room_model.RoomBaseInfo{}).Where("id=?", roomId).Update("status", 1)
 
 	db.Db.Where("course_id=?", courseId).Find(result).Count(&count1)
 	if count1 < 1 {

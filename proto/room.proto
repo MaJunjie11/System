@@ -115,3 +115,31 @@ message TeacherGetReviewingRoomResponse {
 // 老师归还教室
 
 // 管理员修改关闭教室
+
+message ManagerAddRoomRequest {
+  string token = 1;
+  string roomCapacity = 2; //教室容量
+  string roomAddr = 3;
+}
+
+message ManagerAddRoomResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message ManagerGetUseRoomRequest { string token = 1; }
+
+message ManagerGetUseRoomResponse {
+  ErrNo code = 1;
+  string msg = 2;
+  ManagerGetUseRoomData data = 3;
+}
+
+message ManagerGetUseRoomData {
+  repeated ManagerGetUseRoomDataItem options = 1;
+}
+
+message ManagerGetUseRoomDataItem {
+  string label = 1;
+  string value = 2;
+}

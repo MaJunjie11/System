@@ -127,7 +127,83 @@ func SetRoute(r *gin.Engine) {
 	r.POST("/manager_audit_refuse_course", warpManagerAuditRefuseCourse)
 	// 4.管理员重置学生老师的密码
 	r.POST("manager_reset_password", warpManagerResetPassword)
+	// 5.管理员开启选课通道
+	r.GET("/manager_open_select_course", warpManagerOpenSelectCourse)
+	r.GET("/manager_close_select_course", warpManagerCloseSelectCourse)
 
+	//TODO: 教室功能
+	r.POST("/manager_add_room", warpManagerAddRoom)
+
+	r.GET("/manager_get_use_room", warpManagerGetUseRoom)
+
+}
+
+func warpManagerCloseSelectCourse(c *gin.Context) {
+	req := &pb_gen.ManagerCloseSelectCourseRequest{}
+	resp := &pb_gen.ManagerCloseSelectCourseResponse{}
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerCloseSelectCourseHandler(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpManagerOpenSelectCourse(c *gin.Context) {
+	req := &pb_gen.ManagerOpenSelectCourseRequest{}
+	resp := &pb_gen.ManagerOpenSelectCourseResponse{}
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := course_method.NewManagerOpenSelectCourseHandler(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+
+}
+
+func warpManagerGetUseRoom(c *gin.Context) {
+	req := &pb_gen.ManagerGetUseRoomRequest{}
+	resp := &pb_gen.ManagerGetUseRoomResponse{}
+
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := room_method.NewManagerGetUseRoomHandler(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
+}
+
+func warpManagerAddRoom(c *gin.Context) {
+	req := &pb_gen.ManagerAddRoomRequest{}
+	resp := &pb_gen.ManagerAddRoomResponse{}
+
+	c.ShouldBindJSON(req)
+	token := c.Request.Header.Get("token")
+	req.Token = token
+	handler := room_method.NewManagerAddRoomHandelr(req, resp)
+	handler.Run()
+
+	if resp.Code != pb_gen.ErrNo_Success {
+		c.JSON(500, resp)
+	} else {
+		c.JSON(http.StatusOK, resp)
+	}
 }
 
 func warpManagerResetPassword(c *gin.Context) {

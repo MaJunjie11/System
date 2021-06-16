@@ -34,6 +34,7 @@ func (m *ManagerAuditDoneCourseHandler) Run() {
 		return
 	}
 	uid = userToken.Uid
+
 	course_dal.ManagerAuditDownCourseToDb(uid, m.Req.CourseId, m.Req.CourseAddr)
 
 	m.Resp.Code = pb_gen.ErrNo_Success

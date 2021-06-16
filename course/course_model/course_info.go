@@ -4,7 +4,7 @@ import (
 	"System/db"
 )
 
-// 课程的基础信息 展示用
+//
 type CourseBaseInfo struct {
 	CourseId        string
 	TeacherName     string //老师名
@@ -48,6 +48,15 @@ type CourseRefuseInfo struct {
 	CourseIntroduce string // 课程介绍
 	ManagerUid      int64  // 管理员UID
 	RefuseReason    string // 被拒绝的理由
+}
+
+type CourseOpenInfo struct {
+	Id     int `gorm:"primary_key;auto_increment"`
+	Status int // 就一个标记位 0:关闭 1：开启
+}
+
+func (CourseOpenInfo) TableName() string {
+	return "course_open_info"
 }
 
 func (CourseRefuseInfo) TableName() string {
@@ -121,6 +130,12 @@ func AddTableInDb() {
 		db.Db.AutoMigrate(&CourseRefuseInfo{})
 	} else {
 		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseRefuseInfo{})
+	}
+
+	if db.Db.HasTable(&CourseOpenInfo{}) {
+		db.Db.AutoMigrate(&CourseOpenInfo{})
+	} else {
+		db.Db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&CourseOpenInfo{})
 	}
 
 }

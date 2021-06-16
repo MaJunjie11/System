@@ -4693,6 +4693,321 @@ func (x *ManagerResetPasswordResponse) GetMsg() string {
 	return ""
 }
 
+// 管理员开启选课通道
+type ManagerOpenSelectCourseRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (x *ManagerOpenSelectCourseRequest) Reset() {
+	*x = ManagerOpenSelectCourseRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[77]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerOpenSelectCourseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerOpenSelectCourseRequest) ProtoMessage() {}
+
+func (x *ManagerOpenSelectCourseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[77]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerOpenSelectCourseRequest.ProtoReflect.Descriptor instead.
+func (*ManagerOpenSelectCourseRequest) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{77}
+}
+
+func (x *ManagerOpenSelectCourseRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type ManagerOpenSelectCourseResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code ErrNo  `protobuf:"varint,1,opt,name=code,proto3,enum=pb_gen.ErrNo" json:"code,omitempty"`
+	Msg  string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *ManagerOpenSelectCourseResponse) Reset() {
+	*x = ManagerOpenSelectCourseResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[78]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerOpenSelectCourseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerOpenSelectCourseResponse) ProtoMessage() {}
+
+func (x *ManagerOpenSelectCourseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[78]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerOpenSelectCourseResponse.ProtoReflect.Descriptor instead.
+func (*ManagerOpenSelectCourseResponse) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{78}
+}
+
+func (x *ManagerOpenSelectCourseResponse) GetCode() ErrNo {
+	if x != nil {
+		return x.Code
+	}
+	return ErrNo_Success
+}
+
+func (x *ManagerOpenSelectCourseResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type ManagerCloseSelectCourseRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (x *ManagerCloseSelectCourseRequest) Reset() {
+	*x = ManagerCloseSelectCourseRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[79]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerCloseSelectCourseRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerCloseSelectCourseRequest) ProtoMessage() {}
+
+func (x *ManagerCloseSelectCourseRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[79]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerCloseSelectCourseRequest.ProtoReflect.Descriptor instead.
+func (*ManagerCloseSelectCourseRequest) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{79}
+}
+
+func (x *ManagerCloseSelectCourseRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type ManagerCloseSelectCourseResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code ErrNo  `protobuf:"varint,1,opt,name=code,proto3,enum=pb_gen.ErrNo" json:"code,omitempty"`
+	Msg  string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *ManagerCloseSelectCourseResponse) Reset() {
+	*x = ManagerCloseSelectCourseResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[80]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerCloseSelectCourseResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerCloseSelectCourseResponse) ProtoMessage() {}
+
+func (x *ManagerCloseSelectCourseResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[80]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerCloseSelectCourseResponse.ProtoReflect.Descriptor instead.
+func (*ManagerCloseSelectCourseResponse) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{80}
+}
+
+func (x *ManagerCloseSelectCourseResponse) GetCode() ErrNo {
+	if x != nil {
+		return x.Code
+	}
+	return ErrNo_Success
+}
+
+func (x *ManagerCloseSelectCourseResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type StudentAddCourseFromLikeRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token    string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	CourseId string `protobuf:"bytes,2,opt,name=courseId,proto3" json:"courseId,omitempty"`
+}
+
+func (x *StudentAddCourseFromLikeRequest) Reset() {
+	*x = StudentAddCourseFromLikeRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[81]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StudentAddCourseFromLikeRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StudentAddCourseFromLikeRequest) ProtoMessage() {}
+
+func (x *StudentAddCourseFromLikeRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[81]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StudentAddCourseFromLikeRequest.ProtoReflect.Descriptor instead.
+func (*StudentAddCourseFromLikeRequest) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{81}
+}
+
+func (x *StudentAddCourseFromLikeRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *StudentAddCourseFromLikeRequest) GetCourseId() string {
+	if x != nil {
+		return x.CourseId
+	}
+	return ""
+}
+
+type StudentAddCourseFromLikeResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code ErrNo  `protobuf:"varint,1,opt,name=code,proto3,enum=pb_gen.ErrNo" json:"code,omitempty"`
+	Msg  string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *StudentAddCourseFromLikeResponse) Reset() {
+	*x = StudentAddCourseFromLikeResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_course_proto_msgTypes[82]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StudentAddCourseFromLikeResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StudentAddCourseFromLikeResponse) ProtoMessage() {}
+
+func (x *StudentAddCourseFromLikeResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_course_proto_msgTypes[82]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StudentAddCourseFromLikeResponse.ProtoReflect.Descriptor instead.
+func (*StudentAddCourseFromLikeResponse) Descriptor() ([]byte, []int) {
+	return file_course_proto_rawDescGZIP(), []int{82}
+}
+
+func (x *StudentAddCourseFromLikeResponse) GetCode() ErrNo {
+	if x != nil {
+		return x.Code
+	}
+	return ErrNo_Success
+}
+
+func (x *StudentAddCourseFromLikeResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
 var File_course_proto protoreflect.FileDescriptor
 
 var file_course_proto_rawDesc = []byte{
@@ -5260,6 +5575,35 @@ var file_course_proto_rawDesc = []byte{
 	0x65, 0x12, 0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
 	0x0d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e, 0x6f, 0x52, 0x04,
 	0x63, 0x6f, 0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x36, 0x0a, 0x1e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65,
+	0x72, 0x4f, 0x70, 0x65, 0x6e, 0x53, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73,
+	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65,
+	0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x56,
+	0x0a, 0x1f, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x4f, 0x70, 0x65, 0x6e, 0x53, 0x65, 0x6c,
+	0x65, 0x63, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x0d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e, 0x6f, 0x52, 0x04,
+	0x63, 0x6f, 0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x37, 0x0a, 0x1f, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65,
+	0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53, 0x65, 0x6c, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x75, 0x72,
+	0x73, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b,
+	0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22,
+	0x57, 0x0a, 0x20, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x53,
+	0x65, 0x6c, 0x65, 0x63, 0x74, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x0e, 0x32, 0x0d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e, 0x6f,
+	0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x22, 0x53, 0x0a, 0x1f, 0x53, 0x74, 0x75, 0x64,
+	0x65, 0x6e, 0x74, 0x41, 0x64, 0x64, 0x43, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x46, 0x72, 0x6f, 0x6d,
+	0x4c, 0x69, 0x6b, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x14, 0x0a, 0x05, 0x74,
+	0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x6f, 0x6b, 0x65,
+	0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x49, 0x64, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x6f, 0x75, 0x72, 0x73, 0x65, 0x49, 0x64, 0x22, 0x57, 0x0a,
+	0x20, 0x53, 0x74, 0x75, 0x64, 0x65, 0x6e, 0x74, 0x41, 0x64, 0x64, 0x43, 0x6f, 0x75, 0x72, 0x73,
+	0x65, 0x46, 0x72, 0x6f, 0x6d, 0x4c, 0x69, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32,
+	0x0d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e, 0x6f, 0x52, 0x04,
+	0x63, 0x6f, 0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28,
 	0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
@@ -5275,7 +5619,7 @@ func file_course_proto_rawDescGZIP() []byte {
 	return file_course_proto_rawDescData
 }
 
-var file_course_proto_msgTypes = make([]protoimpl.MessageInfo, 77)
+var file_course_proto_msgTypes = make([]protoimpl.MessageInfo, 83)
 var file_course_proto_goTypes = []interface{}{
 	(*StudentGetAddCourseListRequest)(nil),       // 0: pb_gen.StudentGetAddCourseListRequest
 	(*StudentGetAddCourseListResponse)(nil),      // 1: pb_gen.StudentGetAddCourseListResponse
@@ -5354,69 +5698,78 @@ var file_course_proto_goTypes = []interface{}{
 	(*StudentFeetCourseResponse)(nil),            // 74: pb_gen.StudentFeetCourseResponse
 	(*ManagerResetPasswordRequest)(nil),          // 75: pb_gen.ManagerResetPasswordRequest
 	(*ManagerResetPasswordResponse)(nil),         // 76: pb_gen.ManagerResetPasswordResponse
-	(ErrNo)(0),                                   // 77: pb_gen.ErrNo
+	(*ManagerOpenSelectCourseRequest)(nil),       // 77: pb_gen.ManagerOpenSelectCourseRequest
+	(*ManagerOpenSelectCourseResponse)(nil),      // 78: pb_gen.ManagerOpenSelectCourseResponse
+	(*ManagerCloseSelectCourseRequest)(nil),      // 79: pb_gen.ManagerCloseSelectCourseRequest
+	(*ManagerCloseSelectCourseResponse)(nil),     // 80: pb_gen.ManagerCloseSelectCourseResponse
+	(*StudentAddCourseFromLikeRequest)(nil),      // 81: pb_gen.StudentAddCourseFromLikeRequest
+	(*StudentAddCourseFromLikeResponse)(nil),     // 82: pb_gen.StudentAddCourseFromLikeResponse
+	(ErrNo)(0),                                   // 83: pb_gen.ErrNo
 }
 var file_course_proto_depIdxs = []int32{
-	77, // 0: pb_gen.StudentGetAddCourseListResponse.code:type_name -> pb_gen.ErrNo
+	83, // 0: pb_gen.StudentGetAddCourseListResponse.code:type_name -> pb_gen.ErrNo
 	2,  // 1: pb_gen.StudentGetAddCourseListResponse.data:type_name -> pb_gen.StudentGetAddCourseListData
 	3,  // 2: pb_gen.StudentGetAddCourseListData.rows:type_name -> pb_gen.AddCourseData
-	77, // 3: pb_gen.StudentGetEndCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 3: pb_gen.StudentGetEndCourseResponse.code:type_name -> pb_gen.ErrNo
 	6,  // 4: pb_gen.StudentGetEndCourseResponse.data:type_name -> pb_gen.StudentGetEndCourseResponseData
 	13, // 5: pb_gen.StudentGetEndCourseResponseData.items:type_name -> pb_gen.StudentCourseData
-	77, // 6: pb_gen.StudentGetStartCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 6: pb_gen.StudentGetStartCourseResponse.code:type_name -> pb_gen.ErrNo
 	9,  // 7: pb_gen.StudentGetStartCourseResponse.data:type_name -> pb_gen.StudentGetStartCourseResponseData
 	13, // 8: pb_gen.StudentGetStartCourseResponseData.items:type_name -> pb_gen.StudentCourseData
-	77, // 9: pb_gen.StudentGetUntaughtCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 9: pb_gen.StudentGetUntaughtCourseResponse.code:type_name -> pb_gen.ErrNo
 	12, // 10: pb_gen.StudentGetUntaughtCourseResponse.data:type_name -> pb_gen.StudentGetUntaughtCourseResponseData
 	13, // 11: pb_gen.StudentGetUntaughtCourseResponseData.items:type_name -> pb_gen.StudentCourseData
-	77, // 12: pb_gen.StudentAddCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 13: pb_gen.StudentGetNonJoinCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 12: pb_gen.StudentAddCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 13: pb_gen.StudentGetNonJoinCourseResponse.code:type_name -> pb_gen.ErrNo
 	18, // 14: pb_gen.StudentGetNonJoinCourseResponse.data:type_name -> pb_gen.StudentGetNonJoinCourseResponseData
 	19, // 15: pb_gen.StudentGetNonJoinCourseResponseData.items:type_name -> pb_gen.StudentNonJoinCourseData
-	77, // 16: pb_gen.StudentAddLikeCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 17: pb_gen.StudentGetLikeCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 16: pb_gen.StudentAddLikeCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 17: pb_gen.StudentGetLikeCourseResponse.code:type_name -> pb_gen.ErrNo
 	24, // 18: pb_gen.StudentGetLikeCourseResponse.data:type_name -> pb_gen.StudentGetLikeCourseResponseData
 	25, // 19: pb_gen.StudentGetLikeCourseResponseData.items:type_name -> pb_gen.StudentGetLikeCourseData
-	77, // 20: pb_gen.TeacherAddCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 21: pb_gen.TeacherDeleteRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 22: pb_gen.TeacherGetRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 20: pb_gen.TeacherAddCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 21: pb_gen.TeacherDeleteRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 22: pb_gen.TeacherGetRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
 	32, // 23: pb_gen.TeacherGetRefuseCourseResponse.data:type_name -> pb_gen.TeacherGetRefuseCourseResponseData
 	33, // 24: pb_gen.TeacherGetRefuseCourseResponseData.items:type_name -> pb_gen.RefuseCourseData
-	77, // 25: pb_gen.TeacherGetAuditCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 25: pb_gen.TeacherGetAuditCourseResponse.code:type_name -> pb_gen.ErrNo
 	36, // 26: pb_gen.TeacherGetAuditCourseResponse.data:type_name -> pb_gen.TeacherGetAuditCourseResponseData
 	37, // 27: pb_gen.TeacherGetAuditCourseResponseData.items:type_name -> pb_gen.AuditCourseData
-	77, // 28: pb_gen.TeacherGetStartCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 28: pb_gen.TeacherGetStartCourseResponse.code:type_name -> pb_gen.ErrNo
 	40, // 29: pb_gen.TeacherGetStartCourseResponse.data:type_name -> pb_gen.TeacherGetStartCourseResponseData
 	47, // 30: pb_gen.TeacherGetStartCourseResponseData.items:type_name -> pb_gen.TeacherCourseDetailData
-	77, // 31: pb_gen.TeacherGetEndCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 31: pb_gen.TeacherGetEndCourseResponse.code:type_name -> pb_gen.ErrNo
 	43, // 32: pb_gen.TeacherGetEndCourseResponse.data:type_name -> pb_gen.TeacherGetEndCourseResponseData
 	47, // 33: pb_gen.TeacherGetEndCourseResponseData.items:type_name -> pb_gen.TeacherCourseDetailData
-	77, // 34: pb_gen.TeacherGetUntaughtCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 34: pb_gen.TeacherGetUntaughtCourseResponse.code:type_name -> pb_gen.ErrNo
 	46, // 35: pb_gen.TeacherGetUntaughtCourseResponse.data:type_name -> pb_gen.TeacherGetUntaughtCourseResponseData
 	47, // 36: pb_gen.TeacherGetUntaughtCourseResponseData.items:type_name -> pb_gen.TeacherCourseDetailData
-	77, // 37: pb_gen.GetCourseStudentResponse.code:type_name -> pb_gen.ErrNo
+	83, // 37: pb_gen.GetCourseStudentResponse.code:type_name -> pb_gen.ErrNo
 	50, // 38: pb_gen.GetCourseStudentResponse.data:type_name -> pb_gen.GetCourseStudentResponseData
 	51, // 39: pb_gen.GetCourseStudentResponseData.items:type_name -> pb_gen.CourseStudentData
-	77, // 40: pb_gen.GetAuditCourseStudentResponse.code:type_name -> pb_gen.ErrNo
+	83, // 40: pb_gen.GetAuditCourseStudentResponse.code:type_name -> pb_gen.ErrNo
 	54, // 41: pb_gen.GetAuditCourseStudentResponse.data:type_name -> pb_gen.GetAuditCourseStudentResponseData
 	55, // 42: pb_gen.GetAuditCourseStudentResponseData.items:type_name -> pb_gen.AuditCourseStudentData
-	77, // 43: pb_gen.TeacherAuditStudentResponse.code:type_name -> pb_gen.ErrNo
-	77, // 44: pb_gen.TeacherAddStudentResponse.code:type_name -> pb_gen.ErrNo
-	77, // 45: pb_gen.TeacherStartCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 46: pb_gen.TeacherEndCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 47: pb_gen.ManagerGetAuditCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 43: pb_gen.TeacherAuditStudentResponse.code:type_name -> pb_gen.ErrNo
+	83, // 44: pb_gen.TeacherAddStudentResponse.code:type_name -> pb_gen.ErrNo
+	83, // 45: pb_gen.TeacherStartCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 46: pb_gen.TeacherEndCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 47: pb_gen.ManagerGetAuditCourseResponse.code:type_name -> pb_gen.ErrNo
 	66, // 48: pb_gen.ManagerGetAuditCourseResponse.data:type_name -> pb_gen.ManagerGetAuditCourseResponseData
 	37, // 49: pb_gen.ManagerGetAuditCourseResponseData.items:type_name -> pb_gen.AuditCourseData
-	77, // 50: pb_gen.ManagerAuditDoneCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 51: pb_gen.ManagerAuditRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 52: pb_gen.TeacherFeetStudentResponse.code:type_name -> pb_gen.ErrNo
-	77, // 53: pb_gen.StudentFeetCourseResponse.code:type_name -> pb_gen.ErrNo
-	77, // 54: pb_gen.ManagerResetPasswordResponse.code:type_name -> pb_gen.ErrNo
-	55, // [55:55] is the sub-list for method output_type
-	55, // [55:55] is the sub-list for method input_type
-	55, // [55:55] is the sub-list for extension type_name
-	55, // [55:55] is the sub-list for extension extendee
-	0,  // [0:55] is the sub-list for field type_name
+	83, // 50: pb_gen.ManagerAuditDoneCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 51: pb_gen.ManagerAuditRefuseCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 52: pb_gen.TeacherFeetStudentResponse.code:type_name -> pb_gen.ErrNo
+	83, // 53: pb_gen.StudentFeetCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 54: pb_gen.ManagerResetPasswordResponse.code:type_name -> pb_gen.ErrNo
+	83, // 55: pb_gen.ManagerOpenSelectCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 56: pb_gen.ManagerCloseSelectCourseResponse.code:type_name -> pb_gen.ErrNo
+	83, // 57: pb_gen.StudentAddCourseFromLikeResponse.code:type_name -> pb_gen.ErrNo
+	58, // [58:58] is the sub-list for method output_type
+	58, // [58:58] is the sub-list for method input_type
+	58, // [58:58] is the sub-list for extension type_name
+	58, // [58:58] is the sub-list for extension extendee
+	0,  // [0:58] is the sub-list for field type_name
 }
 
 func init() { file_course_proto_init() }
@@ -6350,6 +6703,78 @@ func file_course_proto_init() {
 				return nil
 			}
 		}
+		file_course_proto_msgTypes[77].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerOpenSelectCourseRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_course_proto_msgTypes[78].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerOpenSelectCourseResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_course_proto_msgTypes[79].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerCloseSelectCourseRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_course_proto_msgTypes[80].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerCloseSelectCourseResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_course_proto_msgTypes[81].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StudentAddCourseFromLikeRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_course_proto_msgTypes[82].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StudentAddCourseFromLikeResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -6357,7 +6782,7 @@ func file_course_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_course_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   77,
+			NumMessages:   83,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

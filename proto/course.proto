@@ -419,3 +419,28 @@ message ManagerResetPasswordResponse {
   ErrNo code = 1;
   string msg = 2;
 }
+
+// 管理员开启选课通道
+message ManagerOpenSelectCourseRequest { string token = 1; }
+
+message ManagerOpenSelectCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message ManagerCloseSelectCourseRequest { string token = 1; }
+
+message ManagerCloseSelectCourseResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}
+
+message StudentAddCourseFromLikeRequest {
+  string token = 1;
+  string courseId = 2;
+}
+
+message StudentAddCourseFromLikeResponse {
+  ErrNo code = 1;
+  string msg = 2;
+}

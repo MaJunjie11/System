@@ -1,6 +1,8 @@
 package user_method
 
 import (
+	"System/course/course_model"
+	"System/db"
 	"System/pb_gen"
 	"System/user/user_dal"
 	"System/user/user_moudle"
@@ -57,13 +59,22 @@ func (g *GetUserInfoHandler) packRespData(userBaseInfo *user_moudle.UserStudentB
 		Name:      userBaseInfo.Name,
 		Uuid:      userBaseInfo.Uuid,
 	}
+
 	//TODO: 后续需要优化
 	if userBaseInfo.Limit == 2 {
-		data.Limit = "/selectRoom,/myClass/startClass,/myClass/untaughtClass,/myClass/endClass,/nonjoinClass,/likeClass"
+		// 那么需要查询courseOpenInfo
+		courseOpenInfo := course_model.CourseOpenInfo{}
+		db.Db.Table("course_open_info").Where("id=?", 1).Scan(&courseOpenInfo)
+		if courseOpenInfo.Status == 0 {
+			data.Limit = "/noSelectRoom,/myClass/startClass,/myClass/untaughtClass,/myClass/endClass,/nonjoinClass,/likeClass"
+		} else {
+			data.Limit = "/selectRoom,/myClass/startClass,/myClass/untaughtClass,/myClass/endClass,/nonjoinClass,/likeClass"
+
+		}
 	} else if userBaseInfo.Limit == 1 {
 		data.Limit = "/addRoom,/auditRoom,/teacherClass/startClass,/teacherClass/untaughtClass,/teacherClass/endClass,/refuseCourse"
 	} else if userBaseInfo.Limit == 3 {
-		data.Limit = "/managerAuditCourse,/resetPassword"
+		data.Limit = "/managerAuditCourse,/resetPassword,/managerAddRoom,/managerControlSelectRoom"
 	}
 	fmt.Println("Limit:", data.Limit)
 	g.Resp.Data = data

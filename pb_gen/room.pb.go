@@ -1121,6 +1121,336 @@ func (x *TeacherGetReviewingRoomResponse) GetErrTips() string {
 	return ""
 }
 
+type ManagerAddRoomRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token        string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	RoomCapacity string `protobuf:"bytes,2,opt,name=roomCapacity,proto3" json:"roomCapacity,omitempty"` //教室容量
+	RoomAddr     string `protobuf:"bytes,3,opt,name=roomAddr,proto3" json:"roomAddr,omitempty"`
+}
+
+func (x *ManagerAddRoomRequest) Reset() {
+	*x = ManagerAddRoomRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerAddRoomRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerAddRoomRequest) ProtoMessage() {}
+
+func (x *ManagerAddRoomRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerAddRoomRequest.ProtoReflect.Descriptor instead.
+func (*ManagerAddRoomRequest) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *ManagerAddRoomRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *ManagerAddRoomRequest) GetRoomCapacity() string {
+	if x != nil {
+		return x.RoomCapacity
+	}
+	return ""
+}
+
+func (x *ManagerAddRoomRequest) GetRoomAddr() string {
+	if x != nil {
+		return x.RoomAddr
+	}
+	return ""
+}
+
+type ManagerAddRoomResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code ErrNo  `protobuf:"varint,1,opt,name=code,proto3,enum=pb_gen.ErrNo" json:"code,omitempty"`
+	Msg  string `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+}
+
+func (x *ManagerAddRoomResponse) Reset() {
+	*x = ManagerAddRoomResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerAddRoomResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerAddRoomResponse) ProtoMessage() {}
+
+func (x *ManagerAddRoomResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerAddRoomResponse.ProtoReflect.Descriptor instead.
+func (*ManagerAddRoomResponse) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *ManagerAddRoomResponse) GetCode() ErrNo {
+	if x != nil {
+		return x.Code
+	}
+	return ErrNo_Success
+}
+
+func (x *ManagerAddRoomResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+type ManagerGetUseRoomRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Token string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+}
+
+func (x *ManagerGetUseRoomRequest) Reset() {
+	*x = ManagerGetUseRoomRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerGetUseRoomRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerGetUseRoomRequest) ProtoMessage() {}
+
+func (x *ManagerGetUseRoomRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerGetUseRoomRequest.ProtoReflect.Descriptor instead.
+func (*ManagerGetUseRoomRequest) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *ManagerGetUseRoomRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type ManagerGetUseRoomResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Code ErrNo                  `protobuf:"varint,1,opt,name=code,proto3,enum=pb_gen.ErrNo" json:"code,omitempty"`
+	Msg  string                 `protobuf:"bytes,2,opt,name=msg,proto3" json:"msg,omitempty"`
+	Data *ManagerGetUseRoomData `protobuf:"bytes,3,opt,name=data,proto3" json:"data,omitempty"`
+}
+
+func (x *ManagerGetUseRoomResponse) Reset() {
+	*x = ManagerGetUseRoomResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerGetUseRoomResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerGetUseRoomResponse) ProtoMessage() {}
+
+func (x *ManagerGetUseRoomResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerGetUseRoomResponse.ProtoReflect.Descriptor instead.
+func (*ManagerGetUseRoomResponse) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *ManagerGetUseRoomResponse) GetCode() ErrNo {
+	if x != nil {
+		return x.Code
+	}
+	return ErrNo_Success
+}
+
+func (x *ManagerGetUseRoomResponse) GetMsg() string {
+	if x != nil {
+		return x.Msg
+	}
+	return ""
+}
+
+func (x *ManagerGetUseRoomResponse) GetData() *ManagerGetUseRoomData {
+	if x != nil {
+		return x.Data
+	}
+	return nil
+}
+
+type ManagerGetUseRoomData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Options []*ManagerGetUseRoomDataItem `protobuf:"bytes,1,rep,name=options,proto3" json:"options,omitempty"`
+}
+
+func (x *ManagerGetUseRoomData) Reset() {
+	*x = ManagerGetUseRoomData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[22]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerGetUseRoomData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerGetUseRoomData) ProtoMessage() {}
+
+func (x *ManagerGetUseRoomData) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[22]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerGetUseRoomData.ProtoReflect.Descriptor instead.
+func (*ManagerGetUseRoomData) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{22}
+}
+
+func (x *ManagerGetUseRoomData) GetOptions() []*ManagerGetUseRoomDataItem {
+	if x != nil {
+		return x.Options
+	}
+	return nil
+}
+
+type ManagerGetUseRoomDataItem struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Label string `protobuf:"bytes,1,opt,name=label,proto3" json:"label,omitempty"`
+	Value string `protobuf:"bytes,2,opt,name=value,proto3" json:"value,omitempty"`
+}
+
+func (x *ManagerGetUseRoomDataItem) Reset() {
+	*x = ManagerGetUseRoomDataItem{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_room_proto_msgTypes[23]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ManagerGetUseRoomDataItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ManagerGetUseRoomDataItem) ProtoMessage() {}
+
+func (x *ManagerGetUseRoomDataItem) ProtoReflect() protoreflect.Message {
+	mi := &file_room_proto_msgTypes[23]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ManagerGetUseRoomDataItem.ProtoReflect.Descriptor instead.
+func (*ManagerGetUseRoomDataItem) Descriptor() ([]byte, []int) {
+	return file_room_proto_rawDescGZIP(), []int{23}
+}
+
+func (x *ManagerGetUseRoomDataItem) GetLabel() string {
+	if x != nil {
+		return x.Label
+	}
+	return ""
+}
+
+func (x *ManagerGetUseRoomDataItem) GetValue() string {
+	if x != nil {
+		return x.Value
+	}
+	return ""
+}
+
 var File_room_proto protoreflect.FileDescriptor
 
 var file_room_proto_rawDesc = []byte{
@@ -1248,10 +1578,44 @@ var file_room_proto_rawDesc = []byte{
 	0x4c, 0x69, 0x73, 0x74, 0x12, 0x15, 0x0a, 0x06, 0x65, 0x72, 0x72, 0x5f, 0x6e, 0x6f, 0x18, 0x02,
 	0x20, 0x01, 0x28, 0x05, 0x52, 0x05, 0x65, 0x72, 0x72, 0x4e, 0x6f, 0x12, 0x19, 0x0a, 0x08, 0x65,
 	0x72, 0x72, 0x5f, 0x74, 0x69, 0x70, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x65,
-	0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x2a, 0x2d, 0x0a, 0x0b, 0x52, 0x6f, 0x6f, 0x6d, 0x43, 0x61,
-	0x70, 0x63, 0x69, 0x74, 0x79, 0x12, 0x09, 0x0a, 0x05, 0x53, 0x6d, 0x61, 0x6c, 0x6c, 0x10, 0x00,
-	0x12, 0x0a, 0x0a, 0x06, 0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x10, 0x01, 0x12, 0x07, 0x0a, 0x03,
-	0x42, 0x69, 0x67, 0x10, 0x02, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x72, 0x72, 0x54, 0x69, 0x70, 0x73, 0x22, 0x6d, 0x0a, 0x15, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65,
+	0x72, 0x41, 0x64, 0x64, 0x52, 0x6f, 0x6f, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
+	0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x12, 0x22, 0x0a, 0x0c, 0x72, 0x6f, 0x6f, 0x6d, 0x43, 0x61, 0x70,
+	0x61, 0x63, 0x69, 0x74, 0x79, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x72, 0x6f, 0x6f,
+	0x6d, 0x43, 0x61, 0x70, 0x61, 0x63, 0x69, 0x74, 0x79, 0x12, 0x1a, 0x0a, 0x08, 0x72, 0x6f, 0x6f,
+	0x6d, 0x41, 0x64, 0x64, 0x72, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x72, 0x6f, 0x6f,
+	0x6d, 0x41, 0x64, 0x64, 0x72, 0x22, 0x4d, 0x0a, 0x16, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72,
+	0x41, 0x64, 0x64, 0x52, 0x6f, 0x6f, 0x6d, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x0d, 0x2e,
+	0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e, 0x6f, 0x52, 0x04, 0x63, 0x6f,
+	0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x03, 0x6d, 0x73, 0x67, 0x22, 0x30, 0x0a, 0x18, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x47,
+	0x65, 0x74, 0x55, 0x73, 0x65, 0x52, 0x6f, 0x6f, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x12, 0x14, 0x0a, 0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x05, 0x74, 0x6f, 0x6b, 0x65, 0x6e, 0x22, 0x83, 0x01, 0x0a, 0x19, 0x4d, 0x61, 0x6e, 0x61, 0x67,
+	0x65, 0x72, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x52, 0x6f, 0x6f, 0x6d, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x0e, 0x32, 0x0d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e, 0x45, 0x72, 0x72, 0x4e,
+	0x6f, 0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x6d, 0x73, 0x67, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x03, 0x6d, 0x73, 0x67, 0x12, 0x31, 0x0a, 0x04, 0x64, 0x61, 0x74,
+	0x61, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1d, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e,
+	0x2e, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x52, 0x6f,
+	0x6f, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x52, 0x04, 0x64, 0x61, 0x74, 0x61, 0x22, 0x54, 0x0a, 0x15,
+	0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x52, 0x6f, 0x6f,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x12, 0x3b, 0x0a, 0x07, 0x6f, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x73,
+	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x70, 0x62, 0x5f, 0x67, 0x65, 0x6e, 0x2e,
+	0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x47, 0x65, 0x74, 0x55, 0x73, 0x65, 0x52, 0x6f, 0x6f,
+	0x6d, 0x44, 0x61, 0x74, 0x61, 0x49, 0x74, 0x65, 0x6d, 0x52, 0x07, 0x6f, 0x70, 0x74, 0x69, 0x6f,
+	0x6e, 0x73, 0x22, 0x47, 0x0a, 0x19, 0x4d, 0x61, 0x6e, 0x61, 0x67, 0x65, 0x72, 0x47, 0x65, 0x74,
+	0x55, 0x73, 0x65, 0x52, 0x6f, 0x6f, 0x6d, 0x44, 0x61, 0x74, 0x61, 0x49, 0x74, 0x65, 0x6d, 0x12,
+	0x14, 0x0a, 0x05, 0x6c, 0x61, 0x62, 0x65, 0x6c, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05,
+	0x6c, 0x61, 0x62, 0x65, 0x6c, 0x12, 0x14, 0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x2a, 0x2d, 0x0a, 0x0b, 0x52,
+	0x6f, 0x6f, 0x6d, 0x43, 0x61, 0x70, 0x63, 0x69, 0x74, 0x79, 0x12, 0x09, 0x0a, 0x05, 0x53, 0x6d,
+	0x61, 0x6c, 0x6c, 0x10, 0x00, 0x12, 0x0a, 0x0a, 0x06, 0x4d, 0x69, 0x64, 0x64, 0x6c, 0x65, 0x10,
+	0x01, 0x12, 0x07, 0x0a, 0x03, 0x42, 0x69, 0x67, 0x10, 0x02, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -1267,7 +1631,7 @@ func file_room_proto_rawDescGZIP() []byte {
 }
 
 var file_room_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_room_proto_msgTypes = make([]protoimpl.MessageInfo, 18)
+var file_room_proto_msgTypes = make([]protoimpl.MessageInfo, 24)
 var file_room_proto_goTypes = []interface{}{
 	(RoomCapcity)(0),                                // 0: pb_gen.RoomCapcity
 	(*CreateRoomRequest)(nil),                       // 1: pb_gen.CreateRoomRequest
@@ -1288,20 +1652,31 @@ var file_room_proto_goTypes = []interface{}{
 	(*TeacherCheckStudentToRoomResponse)(nil),       // 16: pb_gen.TeacherCheckStudentToRoomResponse
 	(*TeacherGetReviewingRoomRequest)(nil),          // 17: pb_gen.TeacherGetReviewingRoomRequest
 	(*TeacherGetReviewingRoomResponse)(nil),         // 18: pb_gen.TeacherGetReviewingRoomResponse
-	(*RoomInfo)(nil),                                // 19: pb_gen.RoomInfo
-	(*UserInfo)(nil),                                // 20: pb_gen.UserInfo
+	(*ManagerAddRoomRequest)(nil),                   // 19: pb_gen.ManagerAddRoomRequest
+	(*ManagerAddRoomResponse)(nil),                  // 20: pb_gen.ManagerAddRoomResponse
+	(*ManagerGetUseRoomRequest)(nil),                // 21: pb_gen.ManagerGetUseRoomRequest
+	(*ManagerGetUseRoomResponse)(nil),               // 22: pb_gen.ManagerGetUseRoomResponse
+	(*ManagerGetUseRoomData)(nil),                   // 23: pb_gen.ManagerGetUseRoomData
+	(*ManagerGetUseRoomDataItem)(nil),               // 24: pb_gen.ManagerGetUseRoomDataItem
+	(*RoomInfo)(nil),                                // 25: pb_gen.RoomInfo
+	(*UserInfo)(nil),                                // 26: pb_gen.UserInfo
+	(ErrNo)(0),                                      // 27: pb_gen.ErrNo
 }
 var file_room_proto_depIdxs = []int32{
 	0,  // 0: pb_gen.CreateRoomRequest.room_capcity:type_name -> pb_gen.RoomCapcity
-	19, // 1: pb_gen.ManagerGetReviewingRoomResponse.room_info_list:type_name -> pb_gen.RoomInfo
-	19, // 2: pb_gen.TeacherGetCanReviewingRoomListResponse.roomInfoList:type_name -> pb_gen.RoomInfo
-	20, // 3: pb_gen.TeacherGetReqAddRoomStudentListResponse.user_info_list:type_name -> pb_gen.UserInfo
-	19, // 4: pb_gen.TeacherGetReviewingRoomResponse.room_info_list:type_name -> pb_gen.RoomInfo
-	5,  // [5:5] is the sub-list for method output_type
-	5,  // [5:5] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	25, // 1: pb_gen.ManagerGetReviewingRoomResponse.room_info_list:type_name -> pb_gen.RoomInfo
+	25, // 2: pb_gen.TeacherGetCanReviewingRoomListResponse.roomInfoList:type_name -> pb_gen.RoomInfo
+	26, // 3: pb_gen.TeacherGetReqAddRoomStudentListResponse.user_info_list:type_name -> pb_gen.UserInfo
+	25, // 4: pb_gen.TeacherGetReviewingRoomResponse.room_info_list:type_name -> pb_gen.RoomInfo
+	27, // 5: pb_gen.ManagerAddRoomResponse.code:type_name -> pb_gen.ErrNo
+	27, // 6: pb_gen.ManagerGetUseRoomResponse.code:type_name -> pb_gen.ErrNo
+	23, // 7: pb_gen.ManagerGetUseRoomResponse.data:type_name -> pb_gen.ManagerGetUseRoomData
+	24, // 8: pb_gen.ManagerGetUseRoomData.options:type_name -> pb_gen.ManagerGetUseRoomDataItem
+	9,  // [9:9] is the sub-list for method output_type
+	9,  // [9:9] is the sub-list for method input_type
+	9,  // [9:9] is the sub-list for extension type_name
+	9,  // [9:9] is the sub-list for extension extendee
+	0,  // [0:9] is the sub-list for field type_name
 }
 
 func init() { file_room_proto_init() }
@@ -1530,6 +1905,78 @@ func file_room_proto_init() {
 				return nil
 			}
 		}
+		file_room_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerAddRoomRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_room_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerAddRoomResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_room_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerGetUseRoomRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_room_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerGetUseRoomResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_room_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerGetUseRoomData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_room_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ManagerGetUseRoomDataItem); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -1537,7 +1984,7 @@ func file_room_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_room_proto_rawDesc,
 			NumEnums:      1,
-			NumMessages:   18,
+			NumMessages:   24,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

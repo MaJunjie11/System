@@ -26,7 +26,7 @@ type UserStudentBaseInfo struct {
 type UserStudentDetailInfo struct {
 	Id              int    `gorm:"primary_key;auto_increment"`
 	Uid             int64  // 系统UID
-	Avatar          string // 投降url
+	Avatar          string // 头像url
 	Sex             string // 性别
 	College         string // 所属学院
 	Registration    string // 户籍

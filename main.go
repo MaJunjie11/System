@@ -2,6 +2,7 @@ package main
 
 import (
 	"System/course/course_model"
+	"System/room/room_model"
 	"System/server"
 	"System/user/user_moudle"
 
@@ -29,4 +30,5 @@ func initLog() {
 func initDbTable() {
 	user_moudle.AddTableInDb()
 	course_model.AddTableInDb()
+	room_model.AddTableInDb()
 }
